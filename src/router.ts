@@ -1,11 +1,15 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login.vue";
+import SignUp from "./views/SignUp.vue";
 import Demo from "./views/Demo.vue";
+import Verify from "./views/Verify.vue";
+import About from "./views/About.vue";
+import firebase from "firebase";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -15,17 +19,35 @@ export default new Router({
       component: Login
     },
     {
+      path: "/signup",
+      name: "signup",
+      component: SignUp
+    },
+    {
+      path: "/verify",
+      name: "verify",
+      component: Verify,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/demo",
       name: "demo",
-      component: Demo
+      component: Demo,
+      meta: {
+        requiresAuth: true,
+        requiresVerify: true
+      }
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("./views/About.vue")
+      component: About,
+      meta: {
+        requiresAuth: true,
+        requiresVerify: true
+      }
     },
     {
       path: "*",
@@ -33,3 +55,28 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezve
+  const user = firebase.auth().currentUser;
+
+  // Az azonosítás igénylő (védett) oldalak meta tag-je
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  // A megerősítetést igénylő oldalak meta tag-je
+  const requiresVerify = to.matched.some(record => record.meta.requiresVerify);
+
+  let verified; // Megerősített-e az e-mail cím
+  if (user) verified = user.emailVerified;
+
+  // A megfelelő átirányítások abban az esetben, ha nincs meg a megfelelő jogosultság:
+  if (requiresAuth && !user) next("login");
+  else if (requiresAuth && user) {
+    if (requiresVerify && !verified) next("verify");
+    else if (to.name == "verify" && verified) next("demo");
+    else if (to.name == "verify" && !verified) next();
+    else next();
+  } else next();
+});
+
+export default router;

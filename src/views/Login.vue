@@ -2,25 +2,31 @@
   <v-app>
     <v-layout 
       row 
-      wrap>
+      wrap 
+      justify-center>
       <v-flex 
         xs12 
-        sm12 
-        md12 
-        ld12 
-        xl12>
+        sm10 
+        md8 
+        ld6 
+        xl4>
         <v-form>
-          <v-text-field
-            v-model="email"
-            label="E-mail"
-            placeholder="Your e-mail address"
-            required /><br>
-          <v-text-field
-            v-model="password"
-            label="Password"
-            placeholder="Password"
+          <h2>Login with E-mail and Password</h2>
+          <br>
+          <v-text-field 
+            v-model="email" 
+            label="E-mail address" 
             required />
-          <v-btn @click="signIn()"> Login </v-btn>
+          <v-text-field 
+            v-model="password" 
+            type="password" 
+            label="Password" 
+            required />
+          <br>
+          <v-btn 
+            block 
+            color="info" 
+            @click="Login()">Login</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -38,17 +44,27 @@ export default class Login extends Vue {
 
   constructor() {
     super();
-    this.email = "nitslaszlo@gmail.com";
-    this.password = "";
+    this.email = "nits@jedlik.eu";
+    this.password = "Abc123";
   }
 
-  private signIn() {
+  private Login() {
     firebase
-      .auth()
+      .auth() // Bejelentkezés
       .signInWithEmailAndPassword(this.email, this.password)
       .then(
-        user => {
-          this.$router.replace("/demo");
+        success => {
+          // alert("Successful login!");
+          const user = firebase.auth().currentUser;
+          if (user) {
+            if (user.emailVerified) {
+              // Átírányítás: ha megerősített akkor a demo oldalra
+              this.$router.replace("demo");
+            } else {
+              // Ha nem megerősített a megerősítő e-mail újraküldés oldalára
+              this.$router.replace("verify");
+            }
+          }
         },
         err => {
           alert("Oops. " + err.message);
@@ -59,8 +75,10 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
-/* "scoped" attribute limit the CSS to this component only */
 v-text-field {
   max-width: 200px;
+}
+h2 {
+  margin-top: 20px;
 }
 </style>
