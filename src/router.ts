@@ -82,11 +82,20 @@ router.beforeEach((to, from, next) => {
   //   next("login");
   //   alert("login");
   // }
-  if (!user && to.name == "signup") {
+  if (!user && (to.name == "signup" || to.name == "login")) {
     next();
     return;
   }
-  if (!user && to.name == "login") {
+  if (!user && (to.name != "signup" && to.name != "login")) {
+    next("login");
+    return;
+  }
+
+  if (user && !verified && to.name != "verify") {
+    next("verify");
+    return;
+  }
+  if (user && !verified && to.name == "verify") {
     next();
     return;
   }
@@ -94,10 +103,7 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
-  if (user && !verified && (to.name == "demo" || to.name == "about")) {
-    next("verify");
-    return;
-  } else {
+  if (user && verified && to.name == "about") {
     next();
     return;
   }

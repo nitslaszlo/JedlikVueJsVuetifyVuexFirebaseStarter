@@ -31,7 +31,7 @@
           <v-btn color="info">SignUp</v-btn>
         </router-link>
         <router-link 
-          v-if="this.$isLoggedIn && this.$isVerified"
+          
           class="links"
           to="/demo">
           <v-btn color="info">Demo</v-btn>
