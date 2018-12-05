@@ -8,34 +8,34 @@
           class="logo">
           <v-toolbar-title>My Firebase Demo</v-toolbar-title>
           <!-- E-mal cím kiírása ha van bejelentkezett felhasználó! -->
-          <p>Bejelentkezve: {{ getUserEmail() }}</p>
+          <p>Bejelentkezve: {{ getUserEmail }}</p>
         </div>
         <v-spacer />
         <!-- Router link-eknél beállítva, hogy mikor jelenjenek meg (v-if-ek segítségével) -->
         <v-btn
           color="info"
           class="links"
-          :disabled="this.$isLoggedIn"
+          :disabled="this.$isLoggedIn || this.$route.path == '/'"
           to="/">Login</v-btn>
         <v-btn
           color="info"
           class="links"
-          :disabled="this.$isLoggedIn"
+          :disabled="this.$isLoggedIn || this.$route.path == '/signup'"
           to="/signup">SignUp</v-btn>
         <v-btn
           color="info"
           class="links"
-          disabled="this.$isLoggedIn && this.$isVerified"
+          :disabled="!this.$isLoggedIn || this.$isVerified || this.$route.path == '/verify'"
           to="/verify">Verify</v-btn>
         <v-btn
           color="info"
           class="links"
-          disabled="!this.$isLoggedIn && !this.$isVerified"
+          :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/demo'"
           to="/demo">Demo</v-btn>
         <v-btn 
           color="info"
           class="links"
-          disabled="!this.$isLoggedIn || !this.$isVerified"
+          :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/about'"
           to="/about">About</v-btn>
         <v-btn 
           color="info" 
@@ -70,7 +70,7 @@ export default class App extends Vue {
   }
 
   // Felhasználó e-mail
-  private getUserEmail(): string | null {
+  private get getUserEmail(): string | null {
     return (
       firebase.auth().currentUser!.email +
       (firebase.auth().currentUser!.emailVerified
