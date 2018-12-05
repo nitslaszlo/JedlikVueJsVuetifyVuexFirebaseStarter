@@ -12,40 +12,35 @@
         </div>
         <v-spacer />
         <!-- Router link-eknél beállítva, hogy mikor jelenjenek meg (v-if-ek segítségével) -->
-        <router-link
-          v-if="this.$isLoggedIn && !this.$isVerified"
-          class="links" 
-          to="/verify">
-          <v-btn color="info">Verify</v-btn>
-        </router-link>
-        <router-link 
-          v-if="!this.$isLoggedIn"
+        <v-btn
+          color="info"
           class="links"
-          to="/">
-          <v-btn color="info">Login</v-btn>
-        </router-link>
-        <router-link 
-          v-if="!this.$isLoggedIn"
+          :disabled="this.$isLoggedIn"
+          to="/">Login</v-btn>
+        <v-btn
+          color="info"
           class="links"
-          to="/signup">
-          <v-btn color="info">SignUp</v-btn>
-        </router-link>
-        <router-link 
-          
+          :disabled="this.$isLoggedIn"
+          to="/signup">SignUp</v-btn>
+        <v-btn
+          color="info"
           class="links"
-          to="/demo">
-          <v-btn color="info">Demo</v-btn>
-        </router-link>
-        <router-link 
-          v-if="this.$isLoggedIn && this.$isVerified"
+          disabled="this.$isLoggedIn && this.$isVerified"
+          to="/verify">Verify</v-btn>
+        <v-btn
+          color="info"
           class="links"
-          to="/about">
-          <v-btn color="info">About</v-btn>
-        </router-link>
+          disabled="!this.$isLoggedIn && !this.$isVerified"
+          to="/demo">Demo</v-btn>
         <v-btn 
-          v-if="this.$isLoggedIn"
+          color="info"
           class="links"
+          disabled="!this.$isLoggedIn || !this.$isVerified"
+          to="/about">About</v-btn>
+        <v-btn 
           color="info" 
+          class="links"
+          :disabled="!this.$isLoggedIn"
           @click="logout()">LogOut</v-btn>
       </v-toolbar>
       <v-content>
