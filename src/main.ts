@@ -14,6 +14,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$isLoggedIn = false;
 Vue.prototype.$isVerified = false;
+firebase.auth().signOut();
 
 // onAuthStateChanged: Bejelentkezéskor és kijelentkezéskor fut le
 firebase.auth().onAuthStateChanged(user => {

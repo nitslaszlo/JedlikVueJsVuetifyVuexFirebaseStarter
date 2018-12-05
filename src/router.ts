@@ -57,6 +57,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  // alert(to.name);
   // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezve
   const user = firebase.auth().currentUser;
 
@@ -70,13 +71,36 @@ router.beforeEach((to, from, next) => {
   if (user) verified = user.emailVerified;
 
   // A megfelelő átirányítások abban az esetben, ha nincs meg a megfelelő jogosultság:
-  if (requiresAuth && !user) next("login");
-  else if (requiresAuth && user) {
-    if (requiresVerify && !verified) next("verify");
-    else if (to.name == "verify" && verified) next("demo");
-    else if (to.name == "verify" && !verified) next();
-    else next();
-  } else next();
+  // if (requiresAuth && !user) next("login");
+  // else if (requiresAuth && user) {
+  //   if (requiresVerify && !verified) next("verify");
+  //   else if (to.name == "verify" && verified) next("demo");
+  //   else if (to.name == "verify" && !verified) next();
+  //   else next();
+  // } else next();
+  // if (to.name == "login") {
+  //   next("login");
+  //   alert("login");
+  // }
+  if (!user && to.name == "signup") {
+    next();
+    return;
+  }
+  if (!user && to.name == "login") {
+    next();
+    return;
+  }
+  if (user && verified && to.name == "demo") {
+    next();
+    return;
+  }
+  if (user && !verified && (to.name == "demo" || to.name == "about")) {
+    next("verify");
+    return;
+  } else {
+    next();
+    return;
+  }
 });
 
 export default router;
