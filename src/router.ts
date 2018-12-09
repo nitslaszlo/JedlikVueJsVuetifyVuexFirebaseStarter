@@ -26,28 +26,28 @@ const router = new Router({
     {
       path: "/verify",
       name: "verify",
-      component: Verify,
-      meta: {
-        requiresAuth: true
-      }
+      component: Verify //,
+      // meta: {
+      //   requiresAuth: true
+      // }
     },
     {
       path: "/demo",
       name: "demo",
-      component: Demo,
-      meta: {
-        requiresAuth: true,
-        requiresVerify: true
-      }
+      component: Demo //,
+      // meta: {
+      //   requiresAuth: true,
+      //   requiresVerify: true
+      // }
     },
     {
       path: "/about",
       name: "about",
-      component: About,
-      meta: {
-        requiresAuth: true,
-        requiresVerify: true
-      }
+      component: About //,
+      // meta: {
+      //   requiresAuth: true,
+      //   requiresVerify: true
+      // }
     },
     {
       path: "*",
@@ -61,14 +61,15 @@ router.beforeEach((to, from, next) => {
   // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezve
   const user = firebase.auth().currentUser;
 
-  // Az azonosítás igénylő (védett) oldalak meta tag-je
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-  // A megerősítetést igénylő oldalak meta tag-je
-  const requiresVerify = to.matched.some(record => record.meta.requiresVerify);
-
   let verified; // Megerősített-e az e-mail cím
   if (user) verified = user.emailVerified;
+
+  // Meta-s megoldás (by Tamás Tömördi):
+  // Az azonosítás igénylő (védett) oldalak meta tag-je
+  // const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  // A megerősítetést igénylő oldalak meta tag-je
+  // const requiresVerify = to.matched.some(record => record.meta.requiresVerify);
 
   // A megfelelő átirányítások abban az esetben, ha nincs meg a megfelelő jogosultság:
   // if (requiresAuth && !user) next("login");
@@ -78,31 +79,34 @@ router.beforeEach((to, from, next) => {
   //   else if (to.name == "verify" && !verified) next();
   //   else next();
   // } else next();
-  // if (to.name == "login") {
-  //   next("login");
-  //   alert("login");
-  // }
+
+  // Meták nélküli "favágó" meoldás:
+  // Ha nincs bejelntkezve, de bejelentkezni vagy regisztrálni akar
   if (!user && (to.name == "signup" || to.name == "login")) {
     next();
     return;
   }
+  // Ha nincs bejelntkezve, és nem akar bejelentkezni vagy regisztrálni
   if (!user && (to.name != "signup" && to.name != "login")) {
     next("login");
     return;
   }
-
+  // Ha az e-mail cím nincs megerősítve, és nem akar megerősíteni
   if (user && !verified && to.name != "verify") {
     next("verify");
     return;
   }
+  // Ha az e-mail cím nincs megerősítve, de megerősíteni akar
   if (user && !verified && to.name == "verify") {
     next();
     return;
   }
+  // bejelentkezett, megerősített e-mail, demózni akar
   if (user && verified && to.name == "demo") {
     next();
     return;
   }
+  // bejelentkezett, megerősített e-mail, "aboutolin" akar
   if (user && verified && to.name == "about") {
     next();
     return;
