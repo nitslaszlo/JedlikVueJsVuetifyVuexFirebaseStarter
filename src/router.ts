@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Login from "./views/Login.vue";
 import SignUp from "./views/SignUp.vue";
 import Demo from "./views/Demo.vue";
+import VuexDemo from "./views/VuexDemo.vue";
 import Verify from "./views/Verify.vue";
 import About from "./views/About.vue";
 import firebase from "firebase";
@@ -35,6 +36,15 @@ const router = new Router({
       path: "/demo",
       name: "demo",
       component: Demo //,
+      // meta: {
+      //   requiresAuth: true,
+      //   requiresVerify: true
+      // }
+    },
+    {
+      path: "/vuexdemo",
+      name: "vuexdemo",
+      component: VuexDemo //,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -103,6 +113,11 @@ router.beforeEach((to, from, next) => {
   }
   // bejelentkezett, megerősített e-mail, demózni akar
   if (user && verified && to.name == "demo") {
+    next();
+    return;
+  }
+  // bejelentkezett, megerősített e-mail, Vuex demózni akar
+  if (user && verified && to.name == "vuexdemo") {
     next();
     return;
   }

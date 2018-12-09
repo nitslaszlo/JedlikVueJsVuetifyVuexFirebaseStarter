@@ -32,6 +32,11 @@
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/demo'"
           to="/demo">Demo</v-btn>
+        <v-btn
+          color="info"
+          class="links"
+          :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexdemo'"
+          to="/vuexdemo">Vuex demo</v-btn>
         <v-btn 
           color="info"
           class="links"

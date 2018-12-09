@@ -84,7 +84,7 @@
 <script lang="ts">
 import { Component, Watch, Vue } from "vue-property-decorator";
 import firebase from "firebase";
-import { db } from "./firebaseApp";
+import db from "@/firebaseApp";
 
 @Component({
   firestore: {

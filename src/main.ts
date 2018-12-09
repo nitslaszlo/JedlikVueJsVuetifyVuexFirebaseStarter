@@ -19,6 +19,7 @@ Vue.prototype.$isVerified = false;
 firebase.auth().onAuthStateChanged(user => {
   user = firebase.auth().currentUser;
   // Bejelentkezés és megerősítés ellenőrzése és tárolása
+  // ha a user nem null, akkor be van jelenkezve
   if (user) {
     Vue.prototype.$isLoggedIn = true;
     Vue.prototype.$isVerified = user.emailVerified;
