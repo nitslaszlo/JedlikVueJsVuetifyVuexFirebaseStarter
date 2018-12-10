@@ -1,12 +1,13 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 
 import db from "@/firebaseApp";
-import { firestore } from "firebase";
+import firebase, { firestore } from "firebase";
 
 interface INote {
   id?: string;
   created: firestore.Timestamp; // FireStore beépített időformátum
   text: string;
+  creator: string;
 }
 
 @Module
@@ -47,7 +48,8 @@ export default class Note extends VuexModule {
             // A saját szerkezet az adathoz
             id: change.doc.id,
             created: docData.created,
-            text: docData.text
+            text: docData.text,
+            creator: docData.creator
           };
           if (change.type === "added") {
             data.unshift(item); // Elem hozzáadása a lista elejáhez
@@ -83,7 +85,8 @@ export default class Note extends VuexModule {
   addNote(text: string) {
     let el: INote = {
       created: firestore.Timestamp.now(),
-      text
+      text,
+      creator: firebase.auth().currentUser!.email!
     };
     db.collection("notes").add(el);
     // lehetőség van a beszúrt elem ID-jét lekérdezni
