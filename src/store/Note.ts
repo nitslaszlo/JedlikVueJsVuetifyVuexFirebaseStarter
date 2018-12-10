@@ -18,6 +18,7 @@ export default class Note extends VuexModule {
   @Mutation
   fetch(elements: INote[]) {
     this.Notes = elements;
+    this.Alerts = [];
   }
 
   @Mutation
@@ -39,10 +40,12 @@ export default class Note extends VuexModule {
     db.collection("notes")
       //.where("created", ">", firestore.Timestamp.now()) // szűrés
       .orderBy("created", "asc") // rendezés
-      .onSnapshot(function(querySnapshot) {
+      .onSnapshot(querySnapshot => {
         // event listener
-        querySnapshot.docChanges().forEach(function(change) {
+        querySnapshot.docChanges().forEach(change => {
           // végigmegy a változásokon
+          /* eslint no-console: */
+          console.log(change.type);
           let docData = change.doc.data(); // az adott elem tartalma
           let item: INote = {
             // A saját szerkezet az adathoz
@@ -52,22 +55,25 @@ export default class Note extends VuexModule {
             creator: docData.creator
           };
           if (change.type === "added") {
-            data.unshift(item); // Elem hozzáadása a lista elejáhez
-            cont.commit("addAlert", "Elem hozzáadva!"); // További mutáció meghívása
+            data.unshift(item); // Elem hozzáadása a lista elejéhez
+            cont.commit("addAlert", "Elem " + item.text + " hozzáadva!"); // További mutáció meghívása
           }
           //if (change.type === "modified") {}
           else if (change.type === "removed") {
             let index = 0;
             let breakExp = {};
             try {
-              data.forEach(e => {
-                if (e.id == item.id) throw breakExp; // a forEachből csak Exceptionnal lehet kilépni
+              data.forEach(i => {
+                if (i.id == item.id) {
+                  breakExp = i;
+                  throw breakExp; // a forEachből csak Exceptionnal lehet kilépni
+                }
                 index++;
               });
             } catch (e) {
               if (e === breakExp) {
-                if (index > -1) data.splice(index, 1);
-                cont.commit("addAlert", "Elem törölve!");
+                cont.commit("addAlert", "Elem " + e.text + " törölve!");
+                data.splice(index, 1);
               }
             }
           }
@@ -96,7 +102,7 @@ export default class Note extends VuexModule {
   }
 
   /**
-   * Kitörli az elemet a FireStoreból, mint a hozzáadásnál, itt sincs Mutáció
+   * Kitörli az elemet a FireStoreból, mint a hozzáadásnál, itt sincs Mutáció{}
    * @param item törlendő elem id-je
    */
   @Action

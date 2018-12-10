@@ -83,6 +83,10 @@ export default class App extends Vue {
         : " (NOT verified)")
     );
   }
+
+  mounted() {
+    this.$store.dispatch("fetchAll"); // fetchAll Action futtatása
+  }
 }
 </script>
 
