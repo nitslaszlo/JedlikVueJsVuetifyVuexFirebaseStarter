@@ -33,7 +33,7 @@
             <v-card class="ma-2">
               <v-card-title>
                 <div>
-                  <p class="grey--text">{{ item.text }}</p>
+                  <p class="blue--text">{{ item.text }}</p>
                   <p>{{ item.created&&item.created.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
                   <p>Közzétette: {{ item.creator }}</p>
                 </div>
