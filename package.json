@@ -43,6 +43,7 @@
       "@vue/typescript"
     ],
     "rules": {
+      "no-console" : "off",
       "quotes": [
         "error",
         "double"
