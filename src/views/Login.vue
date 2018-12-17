@@ -14,15 +14,9 @@
           <h2>Login with E-mail and Password</h2>
           <br>
           <v-text-field 
-            label="hidden"
-            style="display:none" />
-          <v-text-field 
             v-model="email"
             label="E-mail address" 
             required />
-          <v-text-field 
-            label="hidden"
-            style="display:none" />
           <v-text-field 
             v-model="password"
             type="password" 
