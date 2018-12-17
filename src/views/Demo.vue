@@ -71,9 +71,6 @@
               flat 
               color="red" 
               @click="deleteLocation(location.id)">Delete</v-btn>
-            <v-btn 
-              flat 
-              color="orange">Hide</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
