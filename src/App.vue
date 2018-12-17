@@ -32,16 +32,16 @@
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/firebasedemo'"
           to="/firebasedemo">Firebase demo</v-btn>
-        <v-btn
-          color="info"
-          class="links"
-          :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexfirebasedemo'"
-          to="/vuexfirebasedemo">Vuex-Firebase demo</v-btn>
         <v-btn 
           color="info"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexdemo'"
           to="/vuexdemo">Vuex demo</v-btn>
+        <v-btn
+          color="info"
+          class="links"
+          :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexfirebasedemo'"
+          to="/vuexfirebasedemo">Vuex-Firebase demo</v-btn>
         <v-btn 
           color="info" 
           class="links"
