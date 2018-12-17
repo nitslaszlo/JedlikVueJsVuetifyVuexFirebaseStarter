@@ -14,11 +14,13 @@
           <h2>Login with E-mail and Password</h2>
           <br>
           <v-text-field 
-            v-model="email" 
+            v-model="email"
+            placeholder=" "
             label="E-mail address" 
             required />
           <v-text-field 
-            v-model="password" 
+            v-model="password"
+            placeholder=" "
             type="password" 
             label="Password" 
             required />
