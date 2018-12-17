@@ -16,10 +16,12 @@
           <v-text-field 
             v-model="email"
             label="E-mail address"
-            autofocus="true" 
+            autofocus="true"
+            autocomplete="true"
             required />
           <v-text-field 
             v-model="password"
+            autocomplete="true"
             type="password" 
             label="Password" 
             required />
