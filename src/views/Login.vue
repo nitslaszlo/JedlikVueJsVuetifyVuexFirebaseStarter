@@ -77,9 +77,6 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
-v-text-field {
-  max-width: 200px;
-}
 h2 {
   margin-top: 20px;
 }
