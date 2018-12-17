@@ -59,7 +59,7 @@ export default class Login extends Vue {
           if (user) {
             if (user.emailVerified) {
               // Átírányítás: ha megerősített akkor a demo oldalra
-              this.$router.replace("demo");
+              this.$router.replace("vuexfirebasedemo");
             } else {
               // Ha nem megerősített a megerősítő e-mail újraküldés oldalára
               this.$router.replace("verify");

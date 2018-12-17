@@ -88,7 +88,7 @@ import db from "@/firebaseApp";
     locations: db.collection("locations")
   }
 })
-export default class Demo extends Vue {
+export default class FirebaseDemo extends Vue {
   private name: string = "";
   private image: string = "";
   private locations: any = [];

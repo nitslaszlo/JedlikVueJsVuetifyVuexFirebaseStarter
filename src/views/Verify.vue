@@ -55,10 +55,10 @@ export default class Verify extends Vue {
       // Felhasználói adatok ujratöltése
       user.reload().then(() => {
         if (user.emailVerified) {
-          // Átírányítás: ha megerősített, akkor a demo oldalra
+          // Átírányítás: ha megerősített, akkor a vuex-firebase demo oldalra
           Vue.prototype.$isLoggedIn = true; // ?? nem jelentek meg a navbar-on a gombok
           Vue.prototype.$isVerified = true;
-          this.$router.replace("demo");
+          this.$router.replace("vuexfirebasedemo");
         } else {
           alert("Verification error!");
         }

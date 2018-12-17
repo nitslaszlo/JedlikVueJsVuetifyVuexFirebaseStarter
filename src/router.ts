@@ -2,10 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login.vue";
 import SignUp from "./views/SignUp.vue";
-import Demo from "./views/Demo.vue";
-import VuexDemo from "./views/VuexDemo.vue";
+import FirebaseDemo from "./views/FirebaseDemo.vue";
+import VuexFirebaseDemo from "./views/VuexFirebaseDemo.vue";
 import Verify from "./views/Verify.vue";
-import About from "./views/About.vue";
+import VuexDemo from "./views/VuexDemo.vue";
 import firebase from "firebase";
 
 Vue.use(Router);
@@ -33,9 +33,18 @@ const router = new Router({
       // }
     },
     {
-      path: "/demo",
-      name: "demo",
-      component: Demo //,
+      path: "/firebasedemo",
+      name: "firebasedemo",
+      component: FirebaseDemo //,
+      // meta: {
+      //   requiresAuth: true,
+      //   requiresVerify: true
+      // }
+    },
+    {
+      path: "/vuexfirebasedemo",
+      name: "vuexfirebasedemo",
+      component: VuexFirebaseDemo //,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -45,15 +54,6 @@ const router = new Router({
       path: "/vuexdemo",
       name: "vuexdemo",
       component: VuexDemo //,
-      // meta: {
-      //   requiresAuth: true,
-      //   requiresVerify: true
-      // }
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: About //,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -111,18 +111,18 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
-  // bejelentkezett, megerősített e-mail, demózni akar
-  if (user && verified && to.name == "demo") {
+  // bejelentkezett, megerősített e-mail, Firebase demózni akar
+  if (user && verified && to.name == "firebasedemo") {
+    next();
+    return;
+  }
+  // bejelentkezett, megerősített e-mail, Vuex-Firebase demózni akar
+  if (user && verified && to.name == "vuexfirebasedemo") {
     next();
     return;
   }
   // bejelentkezett, megerősített e-mail, Vuex demózni akar
   if (user && verified && to.name == "vuexdemo") {
-    next();
-    return;
-  }
-  // bejelentkezett, megerősített e-mail, "aboutolin" akar
-  if (user && verified && to.name == "about") {
     next();
     return;
   }
