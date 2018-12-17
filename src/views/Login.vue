@@ -15,7 +15,8 @@
           <br>
           <v-text-field 
             v-model="email"
-            label="E-mail address" 
+            label="E-mail address"
+            autofocus="true" 
             required />
           <v-text-field 
             v-model="password"
