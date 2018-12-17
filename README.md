@@ -1,6 +1,7 @@
 # Vue.js + Typescript + Vuetify + VueRourer + Vuex + Firebase
 
-Firebase authentication: by Tamás Tömördi
+## Netlify link a teszteléshez
+https://inspiring-bartik-ba788e.netlify.com/
 
 ## Fejlesztői környezet telepítése
 https://github.com/nitslaszlo/JedlikVueJsStarter
