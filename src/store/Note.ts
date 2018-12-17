@@ -46,9 +46,8 @@ export default class Note extends VuexModule {
         // event listener
         querySnapshot.docChanges().forEach(change => {
           // végigmegy a változásokon
-          /* eslint no-console: */
-          console.log(change.type);
           let docData = change.doc.data(); // az adott elem tartalma
+          console.log(change.type + ": " + docData.text);
           let item: INote = {
             // A saját szerkezet az adathoz
             id: change.doc.id,
