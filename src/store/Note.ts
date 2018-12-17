@@ -8,6 +8,8 @@ interface INote {
   created: firestore.Timestamp; // FireStore beépített időformátum
   text: string;
   creator: string;
+  editor: string;
+  editing: boolean;
 }
 
 @Module
@@ -52,14 +54,21 @@ export default class Note extends VuexModule {
             id: change.doc.id,
             created: docData.created,
             text: docData.text,
-            creator: docData.creator
+            creator: docData.creator,
+            editor: docData.editor,
+            editing: docData.editing
           };
           if (change.type === "added") {
             data.unshift(item); // Elem hozzáadása a lista elejéhez
             cont.commit("addAlert", "Elem " + item.text + " hozzáadva!"); // További mutáció meghívása
-          }
-          //if (change.type === "modified") {}
-          else if (change.type === "removed") {
+          } else if (change.type === "modified") {
+            for (let i = 0; i < data.length; i++)
+              if (data[i].id == item.id) {
+                data[i] = item;
+                break;
+              }
+            cont.commit("addAlert", "Elem " + item.text + " szerkesztve!"); // További mutáció meghívása
+          } else if (change.type === "removed") {
             let index = 0;
             let breakExp = {};
             try {
@@ -92,7 +101,9 @@ export default class Note extends VuexModule {
     let el: INote = {
       created: firestore.Timestamp.now(),
       text,
-      creator: firebase.auth().currentUser!.email!
+      creator: firebase.auth().currentUser!.email!,
+      editor: "",
+      editing: false
     };
     db.collection("notes").add(el);
     // lehetőség van a beszúrt elem ID-jét lekérdezni
@@ -110,6 +121,51 @@ export default class Note extends VuexModule {
     db.collection("notes")
       .doc(id)
       .delete();
+  }
+
+  @Action
+  editNote(id: string) {
+    db.collection("notes")
+      .doc(id)
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          let data = doc.data()!;
+          if (data.editing !== true) {
+            db.collection("notes")
+              .doc(id)
+              .set(
+                {
+                  editing: true,
+                  editor: firebase.auth().currentUser!.email!
+                },
+                { merge: true }
+              );
+          }
+        }
+      });
+  }
+
+  @Action
+  editNoteSave(data: { [i: string]: string }) {
+    let id = data.id;
+    let text = data.text;
+    db.collection("notes")
+      .doc(id)
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          let data = doc.data()!;
+          if (
+            data.editing === true &&
+            data.editor === firebase.auth().currentUser!.email!
+          ) {
+            db.collection("notes")
+              .doc(id)
+              .set({ editing: false, text: text }, { merge: true });
+          } else alert("Nem lehet menteni a változtatásokat!");
+        } else alert("Nem lehet menteni a változtatásokat!");
+      });
   }
 
   @Mutation
