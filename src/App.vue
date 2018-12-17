@@ -41,7 +41,7 @@
           color="info"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexdemo'"
-          to="/vuexdemo">About</v-btn>
+          to="/vuexdemo">Vuex demo</v-btn>
         <v-btn 
           color="info" 
           class="links"
