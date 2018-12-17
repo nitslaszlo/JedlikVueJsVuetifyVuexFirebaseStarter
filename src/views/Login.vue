@@ -16,10 +16,11 @@
           <v-text-field 
             v-model="email"
             label="E-mail address"
+            autofocus="true"
             required />
           <v-text-field 
             v-model="password"
-            autofocus="true"
+            placeholder=" "
             type="password" 
             label="Password" 
             required />
