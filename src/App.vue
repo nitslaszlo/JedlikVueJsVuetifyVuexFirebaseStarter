@@ -14,36 +14,43 @@
         <!-- Router link-eknél beállítva, hogy mikor jelenjenek meg (v-if-ek segítségével) -->
         <v-btn
           color="info"
+          round="true"
           class="links"
           :disabled="this.$isLoggedIn || this.$route.path == '/'"
           to="/">Login</v-btn>
         <v-btn
           color="info"
+          round="true"
           class="links"
           :disabled="this.$isLoggedIn || this.$route.path == '/signup'"
           to="/signup">SignUp</v-btn>
         <v-btn
           color="info"
+          round="true"
           class="links"
           :disabled="!this.$isLoggedIn || this.$isVerified || this.$route.path == '/verify'"
           to="/verify">Verify</v-btn>
         <v-btn
           color="info"
+          round="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/firebasedemo'"
           to="/firebasedemo">Firebase demo</v-btn>
         <v-btn 
           color="info"
+          round="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexdemo'"
           to="/vuexdemo">Vuex demo</v-btn>
         <v-btn
           color="info"
+          round="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexfirebasedemo'"
           to="/vuexfirebasedemo">Vuex-Firebase demo</v-btn>
         <v-btn 
-          color="info" 
+          color="info"
+          round="true" 
           class="links"
           :disabled="!this.$isLoggedIn"
           @click="logout()">LogOut</v-btn>

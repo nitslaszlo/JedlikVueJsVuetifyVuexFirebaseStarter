@@ -5,7 +5,8 @@
     <h1>State wheels: {{ this.$store.state.myMod.wheels }}</h1>
     <h1>Getter getAxes: {{ this.$store.getters.getAxes }}</h1>
     <v-btn 
-      color="info" 
+      color="success"
+      round="true"
       @click="fetchNewWheels"> Dispatch action </v-btn>
   </div>
 </template>

@@ -21,7 +21,8 @@
                 required />
               <br>
               <v-btn
-                color="info"
+                color="success"
+                round="true"
                 block
                 @click="$store.dispatch('addNote', NoteText); NoteText = '';">Feljegyzés hozzáadása</v-btn>
             </v-form>

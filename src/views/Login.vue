@@ -27,7 +27,8 @@
           <br>
           <v-btn 
             block 
-            color="info" 
+            color="success"
+            round="true"
             @click="Login()">Login</v-btn>
         </v-form>
       </v-flex>
