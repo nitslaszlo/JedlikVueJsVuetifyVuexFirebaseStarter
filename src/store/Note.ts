@@ -47,7 +47,7 @@ export default class Note extends VuexModule {
         querySnapshot.docChanges().forEach(change => {
           // végigmegy a változásokon
           let docData = change.doc.data(); // az adott elem tartalma
-          console.log(change.type + ": " + docData.text);
+          // console.log(change.type + ": " + docData.text);
           let item: INote = {
             // A saját szerkezet az adathoz
             id: change.doc.id,
@@ -59,7 +59,10 @@ export default class Note extends VuexModule {
           };
           if (change.type === "added") {
             data.unshift(item); // Elem hozzáadása a lista elejéhez
-            cont.commit("addAlert", "Elem " + item.text + " hozzáadva!"); // További mutáció meghívása
+            this.context.commit(
+              "addAlert",
+              "Elem " + item.text + " hozzáadva!"
+            ); // További mutáció meghívása
           } else if (change.type === "modified") {
             for (let i = 0; i < data.length; i++)
               if (data[i].id == item.id) {

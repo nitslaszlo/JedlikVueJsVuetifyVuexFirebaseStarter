@@ -100,10 +100,6 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class VuexDemo extends Vue {
   private NoteText: string = ""; // új feljegyzés szövege
-  // mounted() {
-  //   this.$store.dispatch("fetchAll"); // fetchAll Action futtatása
-  // }
-
   private email: string = firebase.auth().currentUser!.email!;
 }
 </script>
