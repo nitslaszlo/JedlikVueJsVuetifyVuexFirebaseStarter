@@ -11,7 +11,7 @@
         ld6 
         xl4>
         <v-form>
-          <h2>Login with E-mail and Password</h2>
+          <h2>Login with e-mail and password</h2>
           <br>
           <v-text-field 
             v-model="email"
