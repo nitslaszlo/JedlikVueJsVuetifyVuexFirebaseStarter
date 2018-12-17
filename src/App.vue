@@ -6,7 +6,7 @@
         <div 
           v-if="this.$isLoggedIn" 
           class="logo">
-          <v-toolbar-title>My Firebase Demo</v-toolbar-title>
+          <v-toolbar-title>Jedlik Vuex-Firebase demo</v-toolbar-title>
           <!-- E-mal cím kiírása ha van bejelentkezett felhasználó! -->
           <p>Bejelentkezve: {{ getUserEmail }}</p>
         </div>
