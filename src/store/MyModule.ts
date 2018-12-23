@@ -11,7 +11,7 @@ export default class MyModule extends VuexModule {
   }
 
   @Mutation
-  addWheel(n: number) {
+  addWheel(n: number): void {
     this.wheels += n;
   }
 
