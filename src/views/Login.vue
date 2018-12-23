@@ -16,19 +16,19 @@
           <v-text-field 
             v-model="email"
             label="E-mail address"
-            autofocus="true"
+            :autofocus="true"
             required />
           <v-text-field 
             v-model="password"
             placeholder=" "
             type="password" 
-            label="Password" 
+            label="Password"
             required />
           <br>
           <v-btn 
             block 
             color="success"
-            round="true"
+            :round="true"
             @click="Login()">Login</v-btn>
         </v-form>
       </v-flex>

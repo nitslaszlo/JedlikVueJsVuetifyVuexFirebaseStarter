@@ -25,7 +25,7 @@
           <br>
           <v-btn 
             color="success"
-            round="true" 
+            :round="true" 
             block 
             @click="addLocation(name, image)">Add</v-btn>
         </v-form>

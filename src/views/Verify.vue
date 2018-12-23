@@ -16,13 +16,13 @@
           <v-btn 
             block 
             color="success"
-            round="true"
+            :round="true"
             @click="reSendEmail()">Send Verification E-mail Again!</v-btn>
           <br>
           <v-btn
             block
             color="success"
-            round="true"
+            :round="true"
             @click="testVerification()">I successfully verified my email address!</v-btn>
         </v-form>
       </v-flex>

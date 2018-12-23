@@ -22,7 +22,7 @@
               <br>
               <v-btn
                 color="success"
-                round="true"
+                :round="true"
                 block
                 @click="$store.dispatch('addNote', NoteText); NoteText = '';">Feljegyzés hozzáadása</v-btn>
             </v-form>

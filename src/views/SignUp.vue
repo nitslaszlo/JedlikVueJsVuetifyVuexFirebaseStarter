@@ -31,7 +31,7 @@
           <v-btn 
             block 
             color="success"
-            round="true"
+            :round="true"
             @click="SignUp()">SignUp</v-btn>
         </v-form>
       </v-flex>

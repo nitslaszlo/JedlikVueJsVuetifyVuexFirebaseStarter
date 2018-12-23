@@ -38,7 +38,6 @@ export default class Note extends VuexModule {
   @Action({ commit: "fetch" })
   fetchAll() {
     let data: INote[] = [];
-    let cont = this.context; // szükséges, a belső funkciókból, ebben a nézetben való végrehajtásokhoz
     db.collection("notes")
       //.where("created", ">", firestore.Timestamp.now()) // szűrés
       .orderBy("created", "asc") // rendezés
@@ -69,7 +68,10 @@ export default class Note extends VuexModule {
                 data[i] = item;
                 break;
               }
-            cont.commit("addAlert", "Elem " + item.text + " szerkesztve!"); // További mutáció meghívása
+            this.context.commit(
+              "addAlert",
+              "Elem " + item.text + " szerkesztve!"
+            ); // További mutáció meghívása
           } else if (change.type === "removed") {
             let index = 0;
             let breakExp = {};
@@ -83,7 +85,7 @@ export default class Note extends VuexModule {
               });
             } catch (e) {
               if (e === breakExp) {
-                cont.commit("addAlert", "Elem " + e.text + " törölve!");
+                this.context.commit("addAlert", "Elem " + e.text + " törölve!");
                 data.splice(index, 1);
               }
             }

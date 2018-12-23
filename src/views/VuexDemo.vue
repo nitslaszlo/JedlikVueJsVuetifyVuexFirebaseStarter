@@ -6,7 +6,7 @@
     <h1>Getter getAxes: {{ this.$store.getters.getAxes }}</h1>
     <v-btn 
       color="success"
-      round="true"
+      :round="true"
       @click="fetchNewWheels"> Dispatch action </v-btn>
   </div>
 </template>
