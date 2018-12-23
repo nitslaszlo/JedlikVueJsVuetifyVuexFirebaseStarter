@@ -68,7 +68,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // alert(to.name);
-  // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezvőőőőőőőőőőőőőőőőőőőőőőőőőőőőő
+  // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezve
   const user = firebase.auth().currentUser;
 
   let verified; // Megerősített-e az e-mail cím
