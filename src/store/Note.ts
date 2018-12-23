@@ -5,7 +5,7 @@ import firebase, { firestore } from "firebase";
 
 interface INote {
   id?: string;
-  created: firestore.Timestamp; // FireStore beépített időformátum
+  created: firestore.Timestamp; // FireStore beépített időformátuma
   text: string;
   creator: string;
   editor: string;
