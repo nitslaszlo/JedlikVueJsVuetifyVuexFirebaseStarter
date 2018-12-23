@@ -90,7 +90,7 @@ router.beforeEach((to, from, next) => {
   //   else next();
   // } else next();
 
-  // Meták nélküli "favágó" meoldás:
+  // Meták nélküli "favágó" megoldás:
   // Ha nincs bejelntkezve, de bejelentkezni vagy regisztrálni akar
   if (!user && (to.name == "signup" || to.name == "login")) {
     next();
