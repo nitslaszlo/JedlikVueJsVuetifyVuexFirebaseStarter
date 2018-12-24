@@ -1,60 +1,25 @@
 <template>
   <v-app>
-    <v-layout 
-      row 
-      wrap 
-      justify-center>
-      <v-flex 
-        xs12 
-        sm10 
-        md8 
-        lg6 
-        xl4>
+    <v-layout row wrap justify-center>
+      <v-flex xs12 sm10 md8 lg6 xl4>
         <v-form>
           <h2>Upload new image</h2>
           <br>
-          <v-text-field 
-            v-model="name" 
-            label="Image Name" 
-            required />
+          <v-text-field v-model="name" label="Image Name" required/>
           <br>
-          <v-text-field 
-            v-model="image" 
-            label="Image URL" 
-            required />
+          <v-text-field v-model="image" label="Image URL" required/>
           <br>
-          <v-btn 
-            color="success"
-            :round="true" 
-            block 
-            @click="addLocation(name, image)">Add</v-btn>
+          <v-btn color="success" :round="true" block @click="addLocation(name, image)">Add</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
-    <v-layout 
-      row 
-      wrap 
-      justify-center>
-      <v-flex 
-        v-for="(location, index) in locations" 
-        :key="index" 
-        xs12 
-        sm6 
-        md4 
-        lg3 
-        xl3>
+    <v-layout row wrap justify-center>
+      <v-flex v-for="(location, index) in locations" :key="index" xs12 sm6 md4 lg3 xl3>
         <v-card>
-          <v-img 
-            class="white--text image-title" 
-            height="200px" 
-            :src="location.image">
-            <v-container 
-              fill-height 
-              fluid>
+          <v-img class="white--text image-title" height="200px" :src="location.image">
+            <v-container fill-height fluid>
               <v-layout fill-height>
-                <v-flex 
-                  align-end 
-                  flexbox>
+                <v-flex align-end flexbox>
                   <span class="headline">{{ location.name }}</span>
                 </v-flex>
               </v-layout>
@@ -68,10 +33,7 @@
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn 
-              flat 
-              color="red" 
-              @click="deleteLocation(location.id)">Delete</v-btn>
+            <v-btn flat color="red" @click="deleteLocation(location.id)">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

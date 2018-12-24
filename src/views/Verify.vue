@@ -1,29 +1,23 @@
 <template>
   <v-app>
-    <v-layout 
-      row 
-      wrap 
-      justify-center>
-      <v-flex 
-        xs12 
-        sm10 
-        md8 
-        ld6 
-        xl4>
+    <v-layout row wrap justify-center>
+      <v-flex xs12 sm10 md8 ld6 xl4>
         <v-form>
           <h2>E-mail hasn't verified yet!</h2>
-          <br>
-          <v-btn 
-            block 
-            color="success"
-            :round="true"
-            @click="reSendEmail()">Send Verification E-mail Again!</v-btn>
           <br>
           <v-btn
             block
             color="success"
             :round="true"
-            @click="testVerification()">I successfully verified my email address!</v-btn>
+            @click="reSendEmail()"
+          >Send Verification E-mail Again!</v-btn>
+          <br>
+          <v-btn
+            block
+            color="success"
+            :round="true"
+            @click="testVerification()"
+          >I successfully verified my email address!</v-btn>
         </v-form>
       </v-flex>
     </v-layout>

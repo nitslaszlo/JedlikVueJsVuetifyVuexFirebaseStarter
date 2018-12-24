@@ -1,35 +1,20 @@
 <template>
   <v-app>
-    <v-layout 
-      row 
-      wrap 
-      justify-center>
-      <v-flex 
-        xs12 
-        sm10 
-        md8 
-        ld6 
-        xl4>
+    <v-layout row wrap justify-center>
+      <v-flex xs12 sm10 md8 ld6 xl4>
         <v-form>
           <h2>Login with e-mail and password</h2>
           <br>
-          <v-text-field 
-            v-model="email"
-            label="E-mail address"
-            :autofocus="true"
-            required />
-          <v-text-field 
+          <v-text-field v-model="email" label="E-mail address" :autofocus="true" required/>
+          <v-text-field
             v-model="password"
             placeholder=" "
-            type="password" 
+            type="password"
             label="Password"
-            required />
+            required
+          />
           <br>
-          <v-btn 
-            block 
-            color="success"
-            :round="true"
-            @click="Login()">Login</v-btn>
+          <v-btn block color="success" :round="true" @click="Login()">Login</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
