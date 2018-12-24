@@ -63,31 +63,19 @@ export default class Note extends VuexModule {
               "Elem " + item.text + " hozzáadva!"
             ); // További mutáció meghívása
           } else if (change.type === "modified") {
-            for (let i = 0; i < data.length; i++)
-              if (data[i].id == item.id) {
-                data[i] = item;
-                break;
-              }
+            data[data.findIndex(x => x.id == item.id)] = item;
             this.context.commit(
               "addAlert",
               "Elem " + item.text + " szerkesztve!"
             ); // További mutáció meghívása
           } else if (change.type === "removed") {
-            let index = 0;
-            let breakExp = {};
-            try {
-              data.forEach(i => {
-                if (i.id == item.id) {
-                  breakExp = i;
-                  throw breakExp; // a forEachből csak Exceptionnal lehet kilépni
-                }
-                index++;
-              });
-            } catch (e) {
-              if (e === breakExp) {
-                this.context.commit("addAlert", "Elem " + e.text + " törölve!");
-                data.splice(index, 1);
-              }
+            let törlendőIndexe = data.findIndex(x => x.id == item.id);
+            if (törlendőIndexe != -1) {
+              this.context.commit(
+                "addAlert",
+                "Elem " + data[törlendőIndexe].text + " törölve!"
+              );
+              data.splice(törlendőIndexe, 1);
             }
           }
         });
@@ -132,7 +120,7 @@ export default class Note extends VuexModule {
     db.collection("notes")
       .doc(id)
       .get()
-      .then(function(doc) {
+      .then(doc => {
         if (doc.exists) {
           let data = doc.data()!;
           if (data.editing !== true) {
@@ -157,7 +145,7 @@ export default class Note extends VuexModule {
     db.collection("notes")
       .doc(id)
       .get()
-      .then(function(doc) {
+      .then(doc => {
         if (doc.exists) {
           let data = doc.data()!;
           if (
