@@ -17,7 +17,6 @@ export default class MyModule extends VuexModule {
 
   @Action
   async fetchNewWheels(n: number) {
-    // const wheels = await get(wheelStore)
     this.context.commit("addWheel", n);
   }
 }

@@ -10,6 +10,7 @@ interface INote {
   creator: string;
   editor: string;
   editing: boolean;
+  edited: firestore.Timestamp;
 }
 
 @Module
@@ -54,7 +55,8 @@ export default class Note extends VuexModule {
             text: docData.text,
             creator: docData.creator,
             editor: docData.editor,
-            editing: docData.editing
+            editing: docData.editing,
+            edited: docData.edited
           };
           if (change.type === "added") {
             data.unshift(item); // Elem hozzáadása a lista elejéhez
@@ -90,17 +92,18 @@ export default class Note extends VuexModule {
    */
   @Action
   addNote(text: string) {
-    let el: INote = {
+    let newNote: INote = {
       created: firestore.Timestamp.now(),
       text,
       creator: firebase.auth().currentUser!.email!,
       editor: "",
-      editing: false
+      editing: false,
+      edited: firestore.Timestamp.fromMillis(0)
     };
-    db.collection("notes").add(el);
+    db.collection("notes").add(newNote);
     // lehetőség van a beszúrt elem ID-jét lekérdezni
     /*.then(function(docRef) {
-        el.id = docRef.id;
+        newNote.id = docRef.id;
       })*/
   }
 
@@ -129,7 +132,8 @@ export default class Note extends VuexModule {
               .set(
                 {
                   editing: true,
-                  editor: firebase.auth().currentUser!.email!
+                  editor: firebase.auth().currentUser!.email!,
+                  edited: firestore.Timestamp.now()
                 },
                 { merge: true }
               );
@@ -154,7 +158,14 @@ export default class Note extends VuexModule {
           ) {
             db.collection("notes")
               .doc(id)
-              .set({ editing: false, text: text }, { merge: true });
+              .set(
+                {
+                  editing: false,
+                  text: text,
+                  edited: firestore.Timestamp.now()
+                },
+                { merge: true }
+              );
           } else alert("Nem lehet menteni a változtatásokat!");
         } else alert("Nem lehet menteni a változtatásokat!");
       });

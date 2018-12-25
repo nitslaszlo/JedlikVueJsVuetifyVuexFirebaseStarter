@@ -35,11 +35,12 @@
                     color="orange"
                     @click="$store.dispatch('editNoteSave', {id: item.id, text: item.text})"
                   >Mentés</v-btn>
+                  <p class="ma-0">Közzétette: {{ item.creator }}</p>
                   <p
                     class="ma-0"
                   >{{ item.created&&item.created.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
-                  <p class="ma-0">Közzétette: {{ item.creator }}</p>
                   <p v-if="item.editor != ''" class="ma-0">Utolsó szerkesztő: {{ item.editor }}</p>
+                  <p v-if="item.editor != ''" class="ma-0">{{ item.edited.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
                 </div>
               </v-card-title>
               <v-card-actions>
