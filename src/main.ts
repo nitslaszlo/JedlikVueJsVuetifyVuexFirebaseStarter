@@ -12,8 +12,13 @@ Vue.use(VueFire);
 
 Vue.config.productionTip = false;
 
+// There may be data you’d like to use in many components,
+// but you don’t want to pollute the global scope.
+// In these cases, you can make them available to each Vue instance
+// by defining them on the prototype:
 Vue.prototype.$isLoggedIn = false;
 Vue.prototype.$isVerified = false;
+// Now $isLoggedIn and $isVerified are available on all Vue instances, even before creation.
 
 // onAuthStateChanged: Bejelentkezéskor és kijelentkezéskor fut le
 firebase.auth().onAuthStateChanged(user => {
