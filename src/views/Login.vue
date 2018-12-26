@@ -15,6 +15,7 @@
           />
           <br>
           <v-btn block color="success" :round="true" @click="Login()">Login</v-btn>
+          <v-btn block color="success" :round="true" @click="LoginWithGoogle()">Login with Google</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -44,6 +45,31 @@ export default class Login extends Vue {
         success => {
           // alert("Successful login!");
           const user = firebase.auth().currentUser;
+          if (user) {
+            if (user.emailVerified) {
+              // Átírányítás: ha megerősített akkor a demo oldalra
+              this.$router.replace("vuexfirebasedemo");
+            } else {
+              // Ha nem megerősített a megerősítő e-mail újraküldés oldalára
+              this.$router.replace("verify");
+            }
+          }
+        },
+        err => {
+          alert("Oops. " + err.message);
+        }
+      );
+  }
+
+  private LoginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth() // Bejelentkezés
+      .signInWithPopup(provider)
+      .then(
+        success => {
+          // alert("Successful login!");
+          const user = success.user;
           if (user) {
             if (user.emailVerified) {
               // Átírányítás: ha megerősített akkor a demo oldalra
