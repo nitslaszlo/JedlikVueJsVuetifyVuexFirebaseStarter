@@ -15,7 +15,7 @@
           />
           <br>
           <v-btn block color="success" :round="true" @click="Login()">Login</v-btn>
-          <v-btn block color="success" :round="true" @click="LoginWithGoogle()">Login with Google</v-btn>
+          <v-btn block color="info" :round="true" @click="LoginWithGoogle()">Login with Google</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -34,7 +34,8 @@ export default class Login extends Vue {
   constructor() {
     super();
     this.email = "nits@jedlik.eu";
-    this.password = "AsA123456";
+    //this.password = "AsA123456";
+    this.password = "";
   }
 
   private Login() {
