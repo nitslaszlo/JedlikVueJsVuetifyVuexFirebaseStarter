@@ -15,7 +15,8 @@
           />
           <br>
           <v-btn block color="success" :round="true" @click="Login()">Login</v-btn>
-          <v-btn block color="info" :round="true" @click="LoginWithGoogle()">Login with Google</v-btn>
+          <v-btn block color="info" :round="true" @click="SocialLogin(true)">Login with Google</v-btn>
+          <v-btn block color="info" :round="true" @click="SocialLogin(false)">Login with Facebook</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -62,8 +63,13 @@ export default class Login extends Vue {
       );
   }
 
-  private LoginWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+  private SocialLogin(google: boolean): void {
+    let provider = null;
+    if (google) {
+      provider = new firebase.auth.GoogleAuthProvider();
+    } else {
+      provider = new firebase.auth.FacebookAuthProvider();
+    }
     firebase
       .auth() // Bejelentkezés
       .signInWithPopup(provider)
