@@ -30,6 +30,8 @@
               <span class="grey--text">Number {{ index + 1 }}</span>
               <br>
               <span>Uploaded by: {{ location.uploader }}</span>
+              <br>
+              <span>{{ location.createdAt.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</span>
             </div>
           </v-card-title>
           <v-card-actions>
