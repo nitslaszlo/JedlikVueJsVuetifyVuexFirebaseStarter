@@ -10,7 +10,7 @@
             color="success"
             :round="true"
             @click="reSendEmail()"
-          >Send Verification E-mail Again!</v-btn>
+          >Send Verification E-mail!</v-btn>
           <br>
           <v-btn
             block
@@ -45,11 +45,11 @@ export default class Verify extends Vue {
     }
   }
 
-  private testVerification(): void {
+  private async testVerification() {
     const user = firebase.auth().currentUser;
     if (user) {
       // Felhasználói adatok ujratöltése
-      user.reload().then(() => {
+      await user.reload().then(() => {
         if (user.emailVerified) {
           // Átírányítás: ha megerősített, akkor a vuex-firebase demo oldalra
           Vue.prototype.$isLoggedIn = true; // ?? nem jelentek meg a navbar-on a gombok

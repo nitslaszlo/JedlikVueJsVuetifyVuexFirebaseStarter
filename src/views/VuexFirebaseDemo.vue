@@ -6,12 +6,18 @@
           <v-flex xs6 md6 xl4>
             <v-form>
               <h2>Vuex + Firebase Demo</h2>
-              <v-text-field v-model="NoteText" label="Note text:" required/>
+              <v-text-field
+                v-model="NoteText"
+                label="Note text:"
+                :rules="[() => NoteText.length > 0 || 'Required field']"
+                required
+              />
               <br>
               <v-btn
                 color="success"
                 :round="true"
                 block
+                :disabled="NoteText.length == 0"
                 @click="$store.dispatch('addNote', NoteText); NoteText = '';"
               >Feljegyzés hozzáadása</v-btn>
             </v-form>
@@ -40,7 +46,10 @@
                     class="ma-0"
                   >{{ item.created&&item.created.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
                   <p v-if="item.editor != ''" class="ma-0">Utolsó szerkesztő: {{ item.editor }}</p>
-                  <p v-if="item.editor != ''" class="ma-0">{{ item.edited.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
+                  <p
+                    v-if="item.editor != ''"
+                    class="ma-0"
+                  >{{ item.edited.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
                 </div>
               </v-card-title>
               <v-card-actions>

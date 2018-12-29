@@ -72,7 +72,11 @@ router.beforeEach((to, from, next) => {
   const user = firebase.auth().currentUser;
 
   let verified; // Megerősített-e az e-mail cím
-  if (user) verified = user.emailVerified;
+  if (user) {
+    verified = user.emailVerified;
+    Vue.prototype.$isLoggedIn = true;
+    Vue.prototype.$isVerified = verified;
+  }
 
   // Meta-s megoldás (by Tamás Tömördi):
   // Az azonosítás igénylő (védett) oldalak meta tag-je

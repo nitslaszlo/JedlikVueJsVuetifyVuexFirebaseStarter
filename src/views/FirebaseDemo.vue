@@ -5,11 +5,29 @@
         <v-form>
           <h2>Upload new image</h2>
           <br>
-          <v-text-field v-model="name" label="Image Name" required/>
+          <v-text-field
+            v-model.trim="name"
+            label="Image Name"
+            required
+            :rules="[() => name.length > 0 || 'Required field']"
+            @input="CheckInput"
+          />
           <br>
-          <v-text-field v-model="image" label="Image URL" required/>
-          <br>
-          <v-btn color="success" :round="true" block @click="addLocation(name, image)">Add</v-btn>
+          <v-text-field
+            v-model.trim="image"
+            label="Image URL"
+            required
+            :rules="[() => image.length > 0 || 'Required valid image URL']"
+            @input="CheckInput"
+          />
+          <img v-show="false" :src="image" @error="ImageLoadError" @load="ImageLoaded">
+          <v-btn
+            color="success"
+            :round="true"
+            block
+            :disabled="wrongInput"
+            @click="addLocation(name, image)"
+          >Add</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -57,7 +75,27 @@ export default class FirebaseDemo extends Vue {
   private name: string = "";
   private image: string = "";
   private locations: any = [];
+  private wrongInput: boolean = true;
+  private wrongImageURL: boolean = true;
   private orderedLocations: any = [];
+
+  private CheckInput() {
+    if (this.name.length > 0 && this.image.length > 0 && !this.wrongImageURL) {
+      this.wrongInput = false;
+    } else {
+      this.wrongInput = true;
+    }
+  }
+
+  private ImageLoadError() {
+    this.wrongImageURL = true;
+    this.CheckInput();
+  }
+
+  private ImageLoaded() {
+    this.wrongImageURL = false;
+    this.CheckInput();
+  }
 
   //Új elem hozzáadása az adatbázishoz
   private addLocation(name: string, image: string): void {
