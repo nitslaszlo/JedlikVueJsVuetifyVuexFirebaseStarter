@@ -9,7 +9,7 @@
               <v-text-field
                 v-model="NoteText"
                 label="Note text:"
-                :rules="[() => NoteText.length > 0 || 'Required field']"
+                :rules="[x => x.length > 0 || 'Required field']"
                 required
               />
               <br>

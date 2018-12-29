@@ -9,7 +9,7 @@
             v-model.trim="name"
             label="Image Name"
             required
-            :rules="[() => name.length > 0 || 'Required field']"
+            :rules="[x => x.length > 0 || 'Required field']"
             @input="CheckInput"
           />
           <br>
@@ -17,7 +17,7 @@
             v-model.trim="image"
             label="Image URL"
             required
-            :rules="[() => image.length > 0 || 'Required valid image URL']"
+            :rules="[x => x.length > 0 || 'Required valid image URL']"
             @input="CheckInput"
           />
           <img v-show="false" :src="image" @error="ImageLoadError" @load="ImageLoaded">
