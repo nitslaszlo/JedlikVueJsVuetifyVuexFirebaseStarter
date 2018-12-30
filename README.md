@@ -1,4 +1,4 @@
-# Vue.js + Typescript + Vuetify + VueRourer + Vuex + Firebase demo
+# Vue.js + Typescript + Vuetify + VueRourer + Vuex + Firebase
 
 ## Netlify link a teszteléshez
 https://inspiring-bartik-ba788e.netlify.com/
