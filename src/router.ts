@@ -76,6 +76,9 @@ router.beforeEach((to, from, next) => {
     verified = user.emailVerified;
     Vue.prototype.$isLoggedIn = true;
     Vue.prototype.$isVerified = verified;
+  } else {
+    Vue.prototype.$isLoggedIn = false;
+    Vue.prototype.$isVerified = false;
   }
 
   // Meta-s megoldás (by Tamás Tömördi):
