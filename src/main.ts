@@ -18,6 +18,7 @@ Vue.config.productionTip = false;
 // by defining them on the prototype:
 Vue.prototype.$isLoggedIn = false;
 Vue.prototype.$isVerified = false;
+Vue.prototype.$email = "";
 // Now $isLoggedIn and $isVerified are available on all Vue instances, even before creation.
 
 // onAuthStateChanged: Bejelentkezéskor és kijelentkezéskor fut le
@@ -28,10 +29,12 @@ firebase.auth().onAuthStateChanged(user => {
   if (user) {
     Vue.prototype.$isLoggedIn = true;
     Vue.prototype.$isVerified = user.emailVerified;
+    Vue.prototype.$email = user.email;
   } else {
     // ha a user == null
     Vue.prototype.$isLoggedIn = false;
     Vue.prototype.$isVerified = false;
+    Vue.prototype.$email = "";
   }
 });
 

@@ -69,16 +69,20 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // alert(to.name);
   // Aktuális flehasználó tárolása, értéke null, ha nincs bejelentkezve
+
   const user = firebase.auth().currentUser;
 
-  let verified; // Megerősített-e az e-mail cím
+  let verified;
+
   if (user) {
     verified = user.emailVerified;
     Vue.prototype.$isLoggedIn = true;
     Vue.prototype.$isVerified = verified;
+    Vue.prototype.$email = user.email;
   } else {
     Vue.prototype.$isLoggedIn = false;
     Vue.prototype.$isVerified = false;
+    Vue.prototype.$email = "";
   }
 
   // Meta-s megoldás (by Tamás Tömördi):
