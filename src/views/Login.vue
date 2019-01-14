@@ -35,7 +35,7 @@ export default class Login extends Vue {
   constructor() {
     super();
     this.email = "nits@jedlik.eu";
-    this.password = "AsA123456";
+    this.password = "Asa12345";
     // this.password = "";
   }
 

@@ -6,7 +6,8 @@
         <div v-if="this.$isLoggedIn" class="logo">
           <v-toolbar-title>Jedlik Vuex-Firebase demo</v-toolbar-title>
           <!-- E-mail cím kiírása ha van bejelentkezett felhasználó! -->
-          <p>Bejelentkezve: {{ getUserEmail }}</p>
+          <p v-if="!this.$isVerified">Bejelentkezve: {{ getUserEmail }}</p>
+          <p v-if="this.$isVerified">Bejelentkezve: {{ getUserEmail }} (verified)</p>
         </div>
         <v-spacer/>
         <!-- Router link-eknél beállítva, hogy mikor jelenjenek meg (v-if-ek segítségével) -->
@@ -88,12 +89,7 @@ export default class App extends Vue {
 
   // Felhasználó e-mail
   private get getUserEmail(): string | null {
-    return (
-      firebase.auth().currentUser!.email +
-      (firebase.auth().currentUser!.emailVerified
-        ? " (verified)"
-        : " (NOT verified)")
-    );
+    return firebase.auth().currentUser!.email;
   }
 
   mounted() {
