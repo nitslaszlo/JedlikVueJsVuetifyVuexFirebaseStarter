@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-toolbar app>
-        <v-toolbar-title v-if="!this.$isLoggedIn">Jedlik Vuex-Firebase demo</v-toolbar-title>
+        <v-toolbar-title v-if="!this.$isLoggedIn">Jedlik Vuex-Firebase demo NEW</v-toolbar-title>
         <div v-if="this.$isLoggedIn" class="logo">
           <v-toolbar-title>Jedlik Vuex-Firebase demo</v-toolbar-title>
           <!-- E-mail cím kiírása ha van bejelentkezett felhasználó! -->
