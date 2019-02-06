@@ -9,15 +9,13 @@
             block
             color="success"
             :round="true"
-            @click="reSendEmail()"
-          >Send Verification E-mail!</v-btn>
+            @click="reSendEmail()">Send Verification E-mail!</v-btn>
           <br>
           <v-btn
             block
             color="success"
             :round="true"
-            @click="testVerification()"
-          >I successfully verified my email address!</v-btn>
+            @click="testVerification()">I successfully verified my email address!</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -30,22 +28,18 @@ import firebase from "firebase";
 
 @Component
 export default class Verify extends Vue {
-  private reSendEmail(): void {
+  private reSendEmail (): void {
     const user = firebase.auth().currentUser;
     if (user) {
       // Megerősítő e-mail újra küldése
       user.sendEmailVerification().then(
-        succes => {
-          alert("Verification e-mail sent!");
-        },
-        err => {
-          alert("Failed to send verifiation e-mail!");
-        }
+        succes => { alert("Verification e-mail sent!"); },
+        () => { alert("Failed to send verifiation e-mail!"); }
       );
     }
   }
 
-  private async testVerification() {
+  private async testVerification () {
     const user = firebase.auth().currentUser;
     if (user) {
       // Felhasználói adatok ujratöltése
@@ -55,9 +49,7 @@ export default class Verify extends Vue {
           Vue.prototype.$isLoggedIn = true; // ?? nem jelentek meg a navbar-on a gombok
           Vue.prototype.$isVerified = true;
           this.$router.replace("vuexfirebasedemo");
-        } else {
-          alert("Verification error!");
-        }
+        } else { alert("Verification error!"); }
       });
     }
   }

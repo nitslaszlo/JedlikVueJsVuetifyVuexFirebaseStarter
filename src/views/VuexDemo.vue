@@ -15,7 +15,7 @@ import store from "@/store";
 
 @Component
 export default class VuexDemo extends Vue {
-  private async fetchNewWheels() {
+  private async fetchNewWheels () {
     await store.dispatch("fetchNewWheels", 2);
   }
 }

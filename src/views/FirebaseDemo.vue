@@ -10,24 +10,21 @@
             label="Image Name"
             required
             :rules="[x => x.length > 0 || 'Required field']"
-            @input="CheckInput"
-          />
+            @input="CheckInput"/>
           <br>
           <v-text-field
             v-model.trim="image"
             label="Image URL"
             required
             :rules="[x => x.length > 0 || 'Required valid image URL']"
-            @input="CheckInput"
-          />
+            @input="CheckInput"/>
           <img v-show="false" :src="image" @error="ImageLoadError" @load="ImageLoaded">
           <v-btn
             color="success"
             :round="true"
             block
             :disabled="wrongInput"
-            @click="addLocation(name, image)"
-          >Add</v-btn>
+            @click="addLocation(name, image)">Add</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -79,7 +76,7 @@ export default class FirebaseDemo extends Vue {
   private wrongImageURL: boolean = true;
   private orderedLocations: any = [];
 
-  private CheckInput() {
+  private CheckInput () {
     if (this.name.length > 0 && this.image.length > 0 && !this.wrongImageURL) {
       this.wrongInput = false;
     } else {
@@ -87,18 +84,18 @@ export default class FirebaseDemo extends Vue {
     }
   }
 
-  private ImageLoadError() {
+  private ImageLoadError () {
     this.wrongImageURL = true;
     this.CheckInput();
   }
 
-  private ImageLoaded() {
+  private ImageLoaded () {
     this.wrongImageURL = false;
     this.CheckInput();
   }
 
-  //Új elem hozzáadása az adatbázishoz
-  private addLocation(name: string, image: string): void {
+  // Új elem hozzáadása az adatbázishoz
+  private addLocation (name: string, image: string): void {
     const createdAt = new Date();
     const user = firebase.auth().currentUser;
     let uploader;
@@ -118,8 +115,8 @@ export default class FirebaseDemo extends Vue {
     this.image = "";
   }
 
-  //Elem törlése az adatbázisból
-  private deleteLocation(id: any): void {
+  // Elem törlése az adatbázisból
+  private deleteLocation (id: any): void {
     db.collection("locations")
       .doc(id)
       .delete()
@@ -131,8 +128,8 @@ export default class FirebaseDemo extends Vue {
       });
   }
   @Watch("locations")
-  private onLocationsChanged(value: number, oldValue: number) {
-    //alert("invoke: onLocationsChanged");
+  private onLocationsChanged (value: number, oldValue: number) {
+    // alert("invoke: onLocationsChanged");
   }
 }
 </script>

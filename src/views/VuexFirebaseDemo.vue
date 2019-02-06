@@ -10,41 +10,32 @@
                 v-model="NoteText"
                 label="Note text:"
                 :rules="[x => x.length > 0 || 'Required field']"
-                required
-              />
+                required/>
               <br>
               <v-btn
                 color="success"
                 :round="true"
                 block
                 :disabled="NoteText.length == 0"
-                @click="$store.dispatch('addNote', NoteText); NoteText = '';"
-              >Feljegyzés hozzáadása</v-btn>
+                @click="$store.dispatch('addNote', NoteText); NoteText = '';">Feljegyzés hozzáadása</v-btn>
             </v-form>
           </v-flex>
           <v-flex v-for="(item, index) in $store.state.note.Notes" :key="index" xs12 md6 xl4>
             <v-card class="ma-2" :color="item.editing ? 'blue lighten-4' : 'white'">
               <v-card-title>
                 <div>
-                  <p
-                    v-if="!item.editing || !(item.editing && item.editor == email)"
-                    class="blue--text"
-                  >{{ item.text }}</p>
+                  <p v-if="!item.editing || !(item.editing && item.editor == email)" class="blue--text">{{ item.text }}</p>
                   <v-text-field
                     v-if="item.editing && item.editor == email"
                     v-model="item.text"
                     label="Edit note text:"
-                    required
-                  />
+                    required/>
                   <v-btn
                     v-if="item.editing && item.editor == email"
                     color="orange"
-                    @click="$store.dispatch('editNoteSave', {id: item.id, text: item.text})"
-                  >Mentés</v-btn>
+                    @click="$store.dispatch('editNoteSave', {id: item.id, text: item.text})">Mentés</v-btn>
                   <p class="ma-0">Közzétette: {{ item.creator }}</p>
-                  <p
-                    class="ma-0"
-                  >{{ item.created&&item.created.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
+                  <p class="ma-0">{{ item.created&&item.created.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</p>
                   <p v-if="item.editor != ''" class="ma-0">Utolsó szerkesztő: {{ item.editor }}</p>
                   <p
                     v-if="item.editor != ''"
@@ -57,14 +48,12 @@
                   flat
                   color="red"
                   :disabled="item.editing"
-                  @click="$store.dispatch('deleteNote', item.id)"
-                >Törlés</v-btn>
+                  @click="$store.dispatch('deleteNote', item.id)">Törlés</v-btn>
                 <v-btn
                   flat
                   color="orange"
                   :disabled="item.editing"
-                  @click="$store.dispatch('editNote', item.id)"
-                >Szerkesztés</v-btn>
+                  @click="$store.dispatch('editNote', item.id)">Szerkesztés</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -78,8 +67,7 @@
             xs12
             md6
             lg4
-            @click="$store.dispatch('removeAlert', i)"
-          >
+            @click="$store.dispatch('removeAlert', i)">
             <v-alert class="ma-2" :value="true" type="success">{{ i }}</v-alert>
           </v-flex>
         </v-layout>

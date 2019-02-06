@@ -78,7 +78,7 @@ import firebase from "firebase";
 @Component
 export default class App extends Vue {
   // Kijelentkezés
-  private logout(): void {
+  private logout (): void {
     firebase
       .auth()
       .signOut()
@@ -88,7 +88,7 @@ export default class App extends Vue {
   }
 
   // Felhasználó e-mail
-  mounted() {
+  mounted () {
     this.$store.dispatch("fetchAll"); // fetchAll Action futtatása
   }
 }

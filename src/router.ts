@@ -27,7 +27,7 @@ const router = new Router({
     {
       path: "/verify",
       name: "verify",
-      component: Verify //,
+      component: Verify // ,
       // meta: {
       //   requiresAuth: true
       // }
@@ -35,7 +35,7 @@ const router = new Router({
     {
       path: "/firebasedemo",
       name: "firebasedemo",
-      component: FirebaseDemo //,
+      component: FirebaseDemo // ,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -44,7 +44,7 @@ const router = new Router({
     {
       path: "/vuexfirebasedemo",
       name: "vuexfirebasedemo",
-      component: VuexFirebaseDemo //,
+      component: VuexFirebaseDemo // ,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -53,7 +53,7 @@ const router = new Router({
     {
       path: "/vuexdemo",
       name: "vuexdemo",
-      component: VuexDemo //,
+      component: VuexDemo // ,
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
@@ -103,39 +103,38 @@ router.beforeEach((to, from, next) => {
 
   // Meták nélküli "favágó" megoldás:
   // Ha nincs bejelntkezve, de bejelentkezni vagy regisztrálni akar
-  if (!user && (to.name == "signup" || to.name == "login")) {
+  if (!user && (to.name === "signup" || to.name === "login")) {
     next();
     return;
   }
   // Ha nincs bejelntkezve, és nem akar bejelentkezni vagy regisztrálni
-  if (!user && (to.name != "signup" && to.name != "login")) {
+  if (!user && (to.name !== "signup" && to.name !== "login")) {
     next("login");
     return;
   }
   // Ha az e-mail cím nincs megerősítve, és nem akar megerősíteni
-  if (user && !verified && to.name != "verify") {
+  if (user && !verified && to.name !== "verify") {
     next("verify");
     return;
   }
   // Ha az e-mail cím nincs megerősítve, de megerősíteni akar
-  if (user && !verified && to.name == "verify") {
+  if (user && !verified && to.name === "verify") {
     next();
     return;
   }
   // bejelentkezett, megerősített e-mail, Firebase demózni akar
-  if (user && verified && to.name == "firebasedemo") {
+  if (user && verified && to.name === "firebasedemo") {
     next();
     return;
   }
   // bejelentkezett, megerősített e-mail, Vuex-Firebase demózni akar
-  if (user && verified && to.name == "vuexfirebasedemo") {
+  if (user && verified && to.name === "vuexfirebasedemo") {
     next();
     return;
   }
   // bejelentkezett, megerősített e-mail, Vuex demózni akar
-  if (user && verified && to.name == "vuexdemo") {
+  if (user && verified && to.name === "vuexdemo") {
     next();
-    return;
   }
 });
 

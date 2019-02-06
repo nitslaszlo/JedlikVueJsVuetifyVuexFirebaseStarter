@@ -26,37 +26,32 @@ export default class Login extends Vue {
   private password1: string;
   private password2: string;
 
-  constructor() {
+  constructor () {
     super();
     this.email = "";
     this.password1 = "";
     this.password2 = "";
   }
 
-  private SignUp() {
+  private SignUp () {
     // Két jelszó egyezésének ellenőrzése
-    if (this.password1 == this.password2) {
+    if (this.password1 === this.password2) {
       firebase
         .auth() // Felhasználó létrehozása
         .createUserWithEmailAndPassword(this.email, this.password1)
         .then(
           success => {
-            if (success.user)
-              //Ha sikeres regisztráció, a visszaigazoló e-mail kiküldése
+            if (success.user) {
+            // Ha sikeres regisztráció, a visszaigazoló e-mail kiküldése
               success.user.sendEmailVerification().then(
-                success => {
-                  alert("Verification e-mail sent!");
-                },
-                err => {
-                  alert("Failed to send verification e-mail!");
-                }
+                success => { alert("Verification e-mail sent!"); },
+                () => { alert("Failed to send verification e-mail!"); }
               );
+            }
             alert("Successful SignUp!");
             this.$router.replace("verify"); // Átirányítás a megerősítő email újraküldés oldalára
           },
-          err => {
-            alert("Oops. " + err.message);
-          }
+          err => { alert("Oops. " + err.message); }
         );
     } else {
       alert("Passwords don't match!");

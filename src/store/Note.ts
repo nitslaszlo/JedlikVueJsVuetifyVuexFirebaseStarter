@@ -19,13 +19,13 @@ export default class Note extends VuexModule {
   Alerts: string[] = [];
 
   @Mutation
-  fetch(elements: INote[]) {
+  fetch (elements: INote[]) {
     this.Notes = elements;
     this.Alerts = [];
   }
 
   @Mutation
-  addAlert(text: string) {
+  addAlert (text: string) {
     this.Alerts.push(text);
   }
 
@@ -37,10 +37,10 @@ export default class Note extends VuexModule {
    * így ha az adatok változnak, a Mutáció is
    */
   @Action({ commit: "fetch" })
-  fetchAll() {
+  fetchAll () {
     let data: INote[] = [];
     db.collection("notes")
-      //.where("created", ">", firestore.Timestamp.now()) // szűrés
+      // .where("created", ">", firestore.Timestamp.now()) // szűrés
       .orderBy("created", "asc") // rendezés
       .onSnapshot(querySnapshot => {
         // event listener
@@ -65,14 +65,14 @@ export default class Note extends VuexModule {
               "Elem " + item.text + " hozzáadva!"
             ); // További mutáció meghívása
           } else if (change.type === "modified") {
-            data[data.findIndex(x => x.id == item.id)] = item;
+            data[data.findIndex(x => x.id === item.id)] = item;
             this.context.commit(
               "addAlert",
               "Elem " + item.text + " szerkesztve!"
             ); // További mutáció meghívása
           } else if (change.type === "removed") {
-            let törlendőIndexe = data.findIndex(x => x.id == item.id);
-            if (törlendőIndexe != -1) {
+            let törlendőIndexe = data.findIndex(x => x.id === item.id);
+            if (törlendőIndexe !== -1) {
               this.context.commit(
                 "addAlert",
                 "Elem " + data[törlendőIndexe].text + " törölve!"
@@ -91,7 +91,7 @@ export default class Note extends VuexModule {
    * @param text feljegyzés szövege
    */
   @Action
-  addNote(text: string) {
+  addNote (text: string) {
     let newNote: INote = {
       created: firestore.Timestamp.now(),
       text,
@@ -102,9 +102,9 @@ export default class Note extends VuexModule {
     };
     db.collection("notes").add(newNote);
     // lehetőség van a beszúrt elem ID-jét lekérdezni
-    /*.then(function(docRef) {
+    /* .then(function(docRef) {
         newNote.id = docRef.id;
-      })*/
+      }) */
   }
 
   /**
@@ -112,14 +112,14 @@ export default class Note extends VuexModule {
    * @param item törlendő elem id-je
    */
   @Action
-  deleteNote(id: string) {
+  deleteNote (id: string) {
     db.collection("notes")
       .doc(id)
       .delete();
   }
 
   @Action
-  editNote(id: string) {
+  editNote (id: string) {
     db.collection("notes")
       .doc(id)
       .get()
@@ -143,7 +143,7 @@ export default class Note extends VuexModule {
   }
 
   @Action
-  editNoteSave(data: { [i: string]: string }) {
+  editNoteSave (data: { [i: string]: string }) {
     let id = data.id;
     let text = data.text;
     db.collection("notes")
@@ -172,12 +172,12 @@ export default class Note extends VuexModule {
   }
 
   @Mutation
-  removeAlertMutation(id: number) {
+  removeAlertMutation (id: number) {
     this.Alerts.splice(id, 1);
   }
 
   @Action({ commit: "removeAlertMutation" })
-  removeAlert(id: number) {
+  removeAlert (id: number) {
     return id;
   }
 }
