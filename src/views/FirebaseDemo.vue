@@ -10,15 +10,15 @@
             label="Image Name"
             required
             :rules="[x => x.length > 0 || 'Required field']"
-            @input="CheckInput"/>
+            @input="checkInput"/>
           <br>
           <v-text-field
             v-model.trim="image"
             label="Image URL"
             required
             :rules="[x => x.length > 0 || 'Required valid image URL']"
-            @input="CheckInput"/>
-          <img v-show="false" :src="image" @error="ImageLoadError" @load="ImageLoaded">
+            @input="checkInput"/>
+          <img v-show="false" :src="image" @error="imageLoadError" @load="imageLoaded">
           <v-btn
             color="success"
             :round="true"
@@ -76,7 +76,7 @@ export default class FirebaseDemo extends Vue {
   private wrongImageURL: boolean = true;
   private orderedLocations: any = [];
 
-  private CheckInput () {
+  private checkInput () {
     if (this.name.length > 0 && this.image.length > 0 && !this.wrongImageURL) {
       this.wrongInput = false;
     } else {
@@ -84,14 +84,14 @@ export default class FirebaseDemo extends Vue {
     }
   }
 
-  private ImageLoadError () {
+  private imageLoadError () {
     this.wrongImageURL = true;
-    this.CheckInput();
+    this.checkInput();
   }
 
-  private ImageLoaded () {
+  private imageLoaded () {
     this.wrongImageURL = false;
-    this.CheckInput();
+    this.checkInput();
   }
 
   // Új elem hozzáadása az adatbázishoz

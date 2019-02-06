@@ -7,7 +7,7 @@
             <v-form>
               <h2>Vuex + Firebase Demo</h2>
               <v-text-field
-                v-model="NoteText"
+                v-model="noteText"
                 label="Note text:"
                 :rules="[x => x.length > 0 || 'Required field']"
                 required/>
@@ -16,8 +16,8 @@
                 color="success"
                 :round="true"
                 block
-                :disabled="NoteText.length == 0"
-                @click="$store.dispatch('addNote', NoteText); NoteText = '';">Feljegyzés hozzáadása</v-btn>
+                :disabled="noteText.length == 0"
+                @click="$store.dispatch('addNote', noteText); noteText = '';">Feljegyzés hozzáadása</v-btn>
             </v-form>
           </v-flex>
           <v-flex v-for="(item, index) in $store.state.note.Notes" :key="index" xs12 md6 xl4>
@@ -81,7 +81,7 @@ import firebase from "firebase";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class VuexFirebaseDemo extends Vue {
-  private NoteText: string = ""; // új feljegyzés szövege
+  private noteText: string = ""; // új feljegyzés szövege
   private email: string = firebase.auth().currentUser!.email!;
 }
 </script>
