@@ -9,7 +9,7 @@
           <v-text-field v-model="password1" type="password" label="Password" required/>
           <v-text-field v-model="password2" type="password" label="Password again" required/>
           <br>
-          <v-btn block color="success" :round="true" @click="SignUp()">SignUp</v-btn>
+          <v-btn block color="success" :round="true" @click="signUp()">SignUp</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -26,14 +26,14 @@ export default class Login extends Vue {
   private password1: string;
   private password2: string;
 
-  constructor () {
+  constructor() {
     super();
     this.email = "";
     this.password1 = "";
     this.password2 = "";
   }
 
-  private SignUp () {
+  private signUp() {
     // Két jelszó egyezésének ellenőrzése
     if (this.password1 === this.password2) {
       firebase
@@ -42,16 +42,22 @@ export default class Login extends Vue {
         .then(
           success => {
             if (success.user) {
-            // Ha sikeres regisztráció, a visszaigazoló e-mail kiküldése
+              // Ha sikeres regisztráció, a visszaigazoló e-mail kiküldése
               success.user.sendEmailVerification().then(
-                success => { alert("Verification e-mail sent!"); },
-                () => { alert("Failed to send verification e-mail!"); }
+                success => {
+                  alert("Verification e-mail sent!");
+                },
+                () => {
+                  alert("Failed to send verification e-mail!");
+                }
               );
             }
             alert("Successful SignUp!");
             this.$router.replace("verify"); // Átirányítás a megerősítő email újraküldés oldalára
           },
-          err => { alert("Oops. " + err.message); }
+          err => {
+            alert("Oops. " + err.message);
+          }
         );
     } else {
       alert("Passwords don't match!");

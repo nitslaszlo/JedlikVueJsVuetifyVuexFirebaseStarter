@@ -14,9 +14,9 @@
             required
           />
           <br>
-          <v-btn block color="success" :round="true" @click="Login()">Login</v-btn>
-          <v-btn block color="info" :round="true" @click="SocialLogin(true)">Login with Google</v-btn>
-          <v-btn block color="info" :round="true" @click="SocialLogin(false)">Login with Facebook</v-btn>
+          <v-btn block color="success" :round="true" @click="login()">Login</v-btn>
+          <v-btn block color="info" :round="true" @click="socialLogin(true)">Login with Google</v-btn>
+          <v-btn block color="info" :round="true" @click="socialLogin(false)">Login with Facebook</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -32,14 +32,14 @@ export default class Login extends Vue {
   private email: string;
   private password: string;
 
-  constructor () {
+  constructor() {
     super();
     this.email = "nits@jedlik.eu";
     this.password = "Asa12345";
     // this.password = "";
   }
 
-  private Login () {
+  private login() {
     firebase
       .auth() // Bejelentkezés
       .signInWithEmailAndPassword(this.email, this.password)
@@ -63,7 +63,7 @@ export default class Login extends Vue {
       );
   }
 
-  private SocialLogin (google: boolean): void {
+  private socialLogin(google: boolean): void {
     let provider = null;
     if (google) {
       provider = new firebase.auth.GoogleAuthProvider();
