@@ -26,14 +26,14 @@ export default class Login extends Vue {
   private password1: string;
   private password2: string;
 
-  constructor() {
+  constructor () {
     super();
     this.email = "";
     this.password1 = "";
     this.password2 = "";
   }
 
-  private signUp() {
+  private signUp () {
     // Két jelszó egyezésének ellenőrzése
     if (this.password1 === this.password2) {
       firebase

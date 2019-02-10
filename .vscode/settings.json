@@ -8,5 +8,8 @@
             "language": "vue",
             "autoFix": true
         }
-    ]
+    ],
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "eslint.autoFixOnSave": true
 }
