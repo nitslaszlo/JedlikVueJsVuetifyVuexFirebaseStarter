@@ -11,49 +11,49 @@ import firebase from "firebase";
 Vue.use(Router);
 
 const router = new Router({
-  mode: "history",
   base: process.env.BASE_URL,
+  mode: "history",
   routes: [
     {
-      path: "/",
+      component: Login,
       name: "login",
-      component: Login
+      path: "/"
     },
     {
-      path: "/signup",
+      component: SignUp,
       name: "signup",
-      component: SignUp
+      path: "/signup"
     },
     {
-      path: "/verify",
+      component: Verify,
       name: "verify",
-      component: Verify // ,
+      path: "/verify"
       // meta: {
       //   requiresAuth: true
       // }
     },
     {
-      path: "/firebasedemo",
+      component: FirebaseDemo,
       name: "firebasedemo",
-      component: FirebaseDemo // ,
+      path: "/firebasedemo"
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
       // }
     },
     {
-      path: "/vuexfirebasedemo",
+      component: VuexFirebaseDemo,
       name: "vuexfirebasedemo",
-      component: VuexFirebaseDemo // ,
+      path: "/vuexfirebasedemo"
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true
       // }
     },
     {
-      path: "/vuexdemo",
+      component: VuexDemo,
       name: "vuexdemo",
-      component: VuexDemo // ,
+      path: "/vuexdemo"
       // meta: {
       //   requiresAuth: true,
       //   requiresVerify: true

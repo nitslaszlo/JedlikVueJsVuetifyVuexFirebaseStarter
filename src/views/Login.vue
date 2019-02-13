@@ -32,14 +32,14 @@ export default class Login extends Vue {
   private email: string;
   private password: string;
 
-  constructor () {
+  constructor() {
     super();
     this.email = "nits@jedlik.eu";
     this.password = "Asa12345";
     // this.password = "";
   }
 
-  private login () {
+  private login() {
     firebase
       .auth() // Bejelentkezés
       .signInWithEmailAndPassword(this.email, this.password)
@@ -63,7 +63,7 @@ export default class Login extends Vue {
       );
   }
 
-  private socialLogin (google: boolean): void {
+  private socialLogin(google: boolean): void {
     let provider = null;
     if (google) {
       provider = new firebase.auth.GoogleAuthProvider();

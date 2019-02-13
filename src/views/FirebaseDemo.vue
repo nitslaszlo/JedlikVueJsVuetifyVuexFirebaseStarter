@@ -79,7 +79,7 @@ export default class FirebaseDemo extends Vue {
   private wrongImageURL: boolean = true;
   private orderedLocations: any = [];
 
-  private checkInput () {
+  private checkInput() {
     if (this.name.length > 0 && this.image.length > 0 && !this.wrongImageURL) {
       this.wrongInput = false;
     } else {
@@ -87,18 +87,18 @@ export default class FirebaseDemo extends Vue {
     }
   }
 
-  private imageLoadError () {
+  private imageLoadError() {
     this.wrongImageURL = true;
     this.checkInput();
   }
 
-  private imageLoaded () {
+  private imageLoaded() {
     this.wrongImageURL = false;
     this.checkInput();
   }
 
   // Új elem hozzáadása az adatbázishoz
-  private addLocation (name: string, image: string): void {
+  private addLocation(name: string, image: string): void {
     const createdAt = new Date();
     const user = firebase.auth().currentUser;
     let uploader;
@@ -119,7 +119,7 @@ export default class FirebaseDemo extends Vue {
   }
 
   // Elem törlése az adatbázisból
-  private deleteLocation (id: any): void {
+  private deleteLocation(id: any): void {
     db.collection("locations")
       .doc(id)
       .delete()
@@ -131,7 +131,7 @@ export default class FirebaseDemo extends Vue {
       });
   }
   @Watch("locations")
-  private onLocationsChanged (value: number, oldValue: number) {
+  private onLocationsChanged(value: number, oldValue: number) {
     // alert("invoke: onLocationsChanged");
   }
 }

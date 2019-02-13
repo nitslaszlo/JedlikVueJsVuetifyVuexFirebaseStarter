@@ -15,17 +15,17 @@ interface INote {
 
 @Module
 export default class Note extends VuexModule {
-  Notes: INote[] = [];
-  Alerts: string[] = [];
+  public Notes: INote[] = [];
+  public Alerts: string[] = [];
 
   @Mutation
-  fetch (elements: INote[]) {
+  public fetch(elements: INote[]) {
     this.Notes = elements;
     this.Alerts = [];
   }
 
   @Mutation
-  addAlert (text: string) {
+  public addAlert(text: string) {
     this.Alerts.push(text);
   }
 
@@ -37,8 +37,8 @@ export default class Note extends VuexModule {
    * így ha az adatok változnak, a Mutáció is
    */
   @Action({ commit: "fetch" })
-  fetchAll () {
-    let data: INote[] = [];
+  public fetchAll() {
+    const data: INote[] = [];
     db.collection("notes")
       // .where("created", ">", firestore.Timestamp.now()) // szűrés
       .orderBy("created", "asc") // rendezés
@@ -46,9 +46,9 @@ export default class Note extends VuexModule {
         // event listener
         querySnapshot.docChanges().forEach(change => {
           // végigmegy a változásokon
-          let docData = change.doc.data(); // az adott elem tartalma
+          const docData = change.doc.data(); // az adott elem tartalma
           // console.log(change.type + ": " + docData.text);
-          let item: INote = {
+          const item: INote = {
             // A saját szerkezet az adathoz
             id: change.doc.id,
             created: docData.created,
@@ -71,7 +71,7 @@ export default class Note extends VuexModule {
               "Elem " + item.text + " szerkesztve!"
             ); // További mutáció meghívása
           } else if (change.type === "removed") {
-            let törlendőIndexe = data.findIndex(x => x.id === item.id);
+            const törlendőIndexe = data.findIndex(x => x.id === item.id);
             if (törlendőIndexe !== -1) {
               this.context.commit(
                 "addAlert",
@@ -88,13 +88,13 @@ export default class Note extends VuexModule {
   /**
    * Feljegyzés hozzáadásához való Action, ami nem hív meg Mutációt,
    * mert a FireStore a változásokat a fetchAllban követi
-   * @param text feljegyzés szövege
+   * @param textNote feljegyzés szövege
    */
   @Action
-  addNote (text: string) {
-    let newNote: INote = {
+  public addNote(textNote: string) {
+    const newNote: INote = {
       created: firestore.Timestamp.now(),
-      text,
+      text: textNote,
       creator: firebase.auth().currentUser!.email!,
       editor: "",
       editing: false,
@@ -112,20 +112,20 @@ export default class Note extends VuexModule {
    * @param item törlendő elem id-je
    */
   @Action
-  deleteNote (id: string) {
+  public deleteNote(id: string) {
     db.collection("notes")
       .doc(id)
       .delete();
   }
 
   @Action
-  editNote (id: string) {
+  public editNote(id: string) {
     db.collection("notes")
       .doc(id)
       .get()
       .then(doc => {
         if (doc.exists) {
-          let data = doc.data()!;
+          const data = doc.data()!;
           if (data.editing !== true) {
             db.collection("notes")
               .doc(id)
@@ -143,41 +143,41 @@ export default class Note extends VuexModule {
   }
 
   @Action
-  editNoteSave (data: { [i: string]: string }) {
-    let id = data.id;
-    let text = data.text;
+  public editNoteSave(dataFields: { [i: string]: string }) {
+    const idField = dataFields.id;
+    const textField = dataFields.text;
     db.collection("notes")
-      .doc(id)
+      .doc(idField)
       .get()
       .then(doc => {
         if (doc.exists) {
-          let data = doc.data()!;
+          const data = doc.data()!;
           if (
             data.editing === true &&
             data.editor === firebase.auth().currentUser!.email!
           ) {
             db.collection("notes")
-              .doc(id)
+              .doc(idField)
               .set(
                 {
                   editing: false,
-                  text: text,
+                  text: textField,
                   edited: firestore.Timestamp.now()
                 },
                 { merge: true }
               );
-          } else alert("Nem lehet menteni a változtatásokat!");
-        } else alert("Nem lehet menteni a változtatásokat!");
+          } else { alert("Nem lehet menteni a változtatásokat!"); }
+        } else { alert("Nem lehet menteni a változtatásokat!"); }
       });
   }
 
   @Mutation
-  removeAlertMutation (id: number) {
+  public removeAlertMutation(id: number) {
     this.Alerts.splice(id, 1);
   }
 
   @Action({ commit: "removeAlertMutation" })
-  removeAlert (id: number) {
+  public removeAlert(id: number) {
     return id;
   }
 }

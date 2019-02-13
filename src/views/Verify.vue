@@ -30,7 +30,7 @@ import firebase from "firebase";
 
 @Component
 export default class Verify extends Vue {
-  private reSendEmail (): void {
+  private reSendEmail(): void {
     const user = firebase.auth().currentUser;
     if (user) {
       // Megerősítő e-mail újra küldése
@@ -45,7 +45,7 @@ export default class Verify extends Vue {
     }
   }
 
-  private async testVerification () {
+  private async testVerification() {
     const user = firebase.auth().currentUser;
     if (user) {
       // Felhasználói adatok ujratöltése
