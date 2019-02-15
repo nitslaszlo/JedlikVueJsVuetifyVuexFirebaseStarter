@@ -32,6 +32,10 @@
         "singleline": "never"
       }
     ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
     "interface-name": false,
     "ordered-imports": false,
     "no-consecutive-blank-lines": false,
