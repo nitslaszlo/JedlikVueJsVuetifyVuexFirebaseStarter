@@ -1,16 +1,16 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 
 import db from "@/firebaseApp";
-import firebase, { firestore } from "firebase";
+import firebase from "firebase";
 
 interface INote {
   id?: string;
-  created: firestore.Timestamp; // FireStore beépített időformátuma
+  created: firebase.firestore.Timestamp; // FireStore beépített időformátuma
   text: string;
   creator: string;
   editor: string;
   editing: boolean;
-  edited: firestore.Timestamp;
+  edited: firebase.firestore.Timestamp;
 }
 
 @Module
@@ -60,23 +60,14 @@ export default class Note extends VuexModule {
           };
           if (change.type === "added") {
             data.unshift(item); // Elem hozzáadása a lista elejéhez
-            this.context.commit(
-              "addAlert",
-              "Elem " + item.text + " hozzáadva!"
-            ); // További mutáció meghívása
+            this.context.commit("addAlert", "Elem " + item.text + " hozzáadva!"); // További mutáció meghívása
           } else if (change.type === "modified") {
             data[data.findIndex(x => x.id === item.id)] = item;
-            this.context.commit(
-              "addAlert",
-              "Elem " + item.text + " szerkesztve!"
-            ); // További mutáció meghívása
+            this.context.commit("addAlert", "Elem " + item.text + " szerkesztve!"); // További mutáció meghívása
           } else if (change.type === "removed") {
             const törlendőIndexe = data.findIndex(x => x.id === item.id);
             if (törlendőIndexe !== -1) {
-              this.context.commit(
-                "addAlert",
-                "Elem " + data[törlendőIndexe].text + " törölve!"
-              );
+              this.context.commit("addAlert", "Elem " + data[törlendőIndexe].text + " törölve!");
               data.splice(törlendőIndexe, 1);
             }
           }
@@ -93,12 +84,12 @@ export default class Note extends VuexModule {
   @Action
   public addNote(textNote: string) {
     const newNote: INote = {
-      created: firestore.Timestamp.now(),
+      created: firebase.firestore.Timestamp.now(),
       text: textNote,
       creator: firebase.auth().currentUser!.email!,
       editor: "",
       editing: false,
-      edited: firestore.Timestamp.fromMillis(0)
+      edited: firebase.firestore.Timestamp.fromMillis(0)
     };
     db.collection("notes").add(newNote);
     // lehetőség van a beszúrt elem ID-jét lekérdezni
@@ -113,9 +104,7 @@ export default class Note extends VuexModule {
    */
   @Action
   public deleteNote(id: string) {
-    db.collection("notes")
-      .doc(id)
-      .delete();
+    db.collection("notes").doc(id).delete();
   }
 
   @Action
@@ -127,16 +116,14 @@ export default class Note extends VuexModule {
         if (doc.exists) {
           const data = doc.data()!;
           if (data.editing !== true) {
-            db.collection("notes")
-              .doc(id)
-              .set(
-                {
-                  editing: true,
-                  editor: firebase.auth().currentUser!.email!,
-                  edited: firestore.Timestamp.now()
-                },
-                { merge: true }
-              );
+            db.collection("notes").doc(id).set(
+              {
+                editing: true,
+                editor: firebase.auth().currentUser!.email!,
+                edited: firebase.firestore.Timestamp.now()
+              },
+              { merge: true }
+            );
           }
         }
       });
@@ -152,22 +139,21 @@ export default class Note extends VuexModule {
       .then(doc => {
         if (doc.exists) {
           const data = doc.data()!;
-          if (
-            data.editing === true &&
-            data.editor === firebase.auth().currentUser!.email!
-          ) {
-            db.collection("notes")
-              .doc(idField)
-              .set(
-                {
-                  editing: false,
-                  text: textField,
-                  edited: firestore.Timestamp.now()
-                },
-                { merge: true }
-              );
-          } else { alert("Nem lehet menteni a változtatásokat!"); }
-        } else { alert("Nem lehet menteni a változtatásokat!"); }
+          if (data.editing === true && data.editor === firebase.auth().currentUser!.email!) {
+            db.collection("notes").doc(idField).set(
+              {
+                editing: false,
+                text: textField,
+                edited: firebase.firestore.Timestamp.now()
+              },
+              { merge: true }
+            );
+          } else {
+            alert("Nem lehet menteni a változtatásokat!");
+          }
+        } else {
+          alert("Nem lehet menteni a változtatásokat!");
+        }
       });
   }
 

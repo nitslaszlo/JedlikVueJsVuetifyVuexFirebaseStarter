@@ -4,12 +4,12 @@
       <v-flex xs12 sm10 md8 ld6 xl4>
         <v-form>
           <h2>SignUp with E-mail and Password</h2>
-          <br>
-          <v-text-field v-model="email" label="E-mail address" required/>
-          <v-text-field v-model="password1" type="password" label="Password" required/>
-          <v-text-field v-model="password2" type="password" label="Password again" required/>
-          <br>
-          <v-btn block color="success" :round="true" @click="signUp()">SignUp</v-btn>
+          <br />
+          <v-text-field v-model="email" label="E-mail address" required />
+          <v-text-field v-model="password1" type="password" label="Password" required />
+          <v-text-field v-model="password2" type="password" label="Password again" required />
+          <br />
+          <v-btn block color="success" :rounded="true" @click="signUp()">SignUp</v-btn>
         </v-form>
       </v-flex>
     </v-layout>

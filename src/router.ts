@@ -108,7 +108,7 @@ router.beforeEach((to, from, next) => {
     return;
   }
   // Ha nincs bejelntkezve, és nem akar bejelentkezni vagy regisztrálni
-  if (!user && (to.name !== "signup" && to.name !== "login")) {
+  if (!user && to.name !== "signup" && to.name !== "login") {
     next("login");
     return;
   }

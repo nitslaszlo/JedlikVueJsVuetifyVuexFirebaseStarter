@@ -4,15 +4,9 @@
       <v-flex xs12 sm10 md8 lg6 xl4>
         <v-form>
           <h2>Upload new image</h2>
-          <br>
-          <v-text-field
-            v-model.trim="name"
-            label="Image Name"
-            required
-            :rules="[x => x.length > 0 || 'Required field']"
-            @input="checkInput"
-          />
-          <br>
+          <br />
+          <v-text-field v-model.trim="name" label="Image Name" required :rules="[x => x.length > 0 || 'Required field']" @input="checkInput" />
+          <br />
           <v-text-field
             v-model.trim="image"
             label="Image URL"
@@ -20,14 +14,8 @@
             :rules="[x => x.length > 0 || 'Required valid image URL']"
             @input="checkInput"
           />
-          <img v-show="false" :src="image" @error="imageLoadError" @load="imageLoaded">
-          <v-btn
-            color="success"
-            :round="true"
-            block
-            :disabled="wrongInput"
-            @click="addLocation(name, image)"
-          >Add</v-btn>
+          <img v-show="false" :src="image" @error="imageLoadError" @load="imageLoaded" />
+          <v-btn color="success" :rounded="true" block :disabled="wrongInput" @click="addLocation(name, image)">Add</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -46,14 +34,23 @@
           <v-card-title>
             <div>
               <span class="grey--text">Number {{ index + 1 }}</span>
-              <br>
+              <br />
               <span>Uploaded by: {{ location.uploader }}</span>
-              <br>
-              <span>{{ location.createdAt.toDate().toLocaleDateString("hu-HU", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }) }}</span>
+              <br />
+              <span>{{
+                location.createdAt.toDate().toLocaleDateString("hu-HU", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric"
+                })
+              }}</span>
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn flat color="red" @click="deleteLocation(location.id)">Delete</v-btn>
+            <v-btn text color="red" @click="deleteLocation(location.id)">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

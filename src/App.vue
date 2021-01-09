@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-toolbar app>
+      <v-app-bar app>
         <v-toolbar-title v-if="!this.$isLoggedIn">Jedlik Vuex-Firebase demo NEW</v-toolbar-title>
         <div v-if="this.$isLoggedIn" class="logo">
           <v-toolbar-title>Jedlik Vuex-Firebase demo</v-toolbar-title>
@@ -9,64 +9,50 @@
           <p v-if="!this.$isVerified">Bejelentkezve: {{ this.$email }}</p>
           <p v-if="this.$isVerified">Bejelentkezve: {{ this.$email }} (verified)</p>
         </div>
-        <v-spacer/>
+        <v-spacer />
         <!-- Router link-eknél beállítva, hogy mikor jelenjenek meg (v-if-ek segítségével) -->
+        <v-btn color="info" :rounded="true" class="links" :disabled="this.$isLoggedIn || this.$route.path == '/'" to="/">Login</v-btn>
+        <v-btn color="info" :rounded="true" class="links" :disabled="this.$isLoggedIn || this.$route.path == '/signup'" to="/signup">SignUp</v-btn>
         <v-btn
           color="info"
-          :round="true"
-          class="links"
-          :disabled="this.$isLoggedIn || this.$route.path == '/'"
-          to="/"
-        >Login</v-btn>
-        <v-btn
-          color="info"
-          :round="true"
-          class="links"
-          :disabled="this.$isLoggedIn || this.$route.path == '/signup'"
-          to="/signup"
-        >SignUp</v-btn>
-        <v-btn
-          color="info"
-          :round="true"
+          :rounded="true"
           class="links"
           :disabled="!this.$isLoggedIn || this.$isVerified || this.$route.path == '/verify'"
           to="/verify"
-        >Verify</v-btn>
+          >Verify</v-btn
+        >
         <v-btn
           color="info"
-          :round="true"
+          :rounded="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/firebasedemo'"
           to="/firebasedemo"
-        >Firebase demo</v-btn>
+          >Firebase demo</v-btn
+        >
         <v-btn
           color="info"
-          :round="true"
+          :rounded="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexdemo'"
           to="/vuexdemo"
-        >Vuex demo</v-btn>
+          >Vuex demo</v-btn
+        >
         <v-btn
           color="info"
-          :round="true"
+          :rounded="true"
           class="links"
           :disabled="!this.$isLoggedIn || !this.$isVerified || this.$route.path == '/vuexfirebasedemo'"
           to="/vuexfirebasedemo"
-        >Vuex-Firebase demo</v-btn>
-        <v-btn
-          color="info"
-          :round="true"
-          class="links"
-          :disabled="!this.$isLoggedIn"
-          @click="logout()"
-        >LogOut</v-btn>
-      </v-toolbar>
-      <v-content>
+          >Vuex-Firebase demo</v-btn
+        >
+        <v-btn color="info" :rounded="true" class="links" :disabled="!this.$isLoggedIn" @click="logout()">LogOut</v-btn>
+      </v-app-bar>
+      <v-main>
         <v-container fluid>
-          <router-view/>
+          <router-view />
         </v-container>
-      </v-content>
-      <v-footer/>
+      </v-main>
+      <v-footer />
     </v-app>
   </div>
 </template>
@@ -74,7 +60,6 @@
 <script lang="ts">
 import { Component, Watch, Vue } from "vue-property-decorator";
 import firebase from "firebase";
-
 @Component
 export default class App extends Vue {
   // Felhasználó e-mail

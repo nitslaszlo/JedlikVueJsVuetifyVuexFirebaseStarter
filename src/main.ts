@@ -2,12 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import Vuetify from "vuetify";
-import VueFire from "vuefire";
+// import VueFire from "vuefire";
+import { rtdbPlugin as VueFire } from "vuefire";
 import "vuetify/dist/vuetify.min.css";
 import store from "./store";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import vuetify from "./plugins/vuetify";
 
-Vue.use(Vuetify, {});
+Vue.use(Vuetify);
 Vue.use(VueFire);
 
 Vue.config.productionTip = false;
@@ -41,5 +43,6 @@ firebase.auth().onAuthStateChanged(user => {
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");

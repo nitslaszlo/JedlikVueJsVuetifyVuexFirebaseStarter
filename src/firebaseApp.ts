@@ -7,10 +7,11 @@ const config = {
   databaseURL: "https://my-vuejs-typescript.firebaseio.com",
   projectId: "my-vuejs-typescript",
   storageBucket: "my-vuejs-typescript.appspot.com",
-  messagingSenderId: "863094360929"
+  messagingSenderId: "863094360929",
+  timestampsInSnapshots: true
 };
 
 const app = firebase.initializeApp(config);
 const db = app.firestore();
-db.settings({ timestampsInSnapshots: true });
+// db.settings({ timestampsInSnapshots: true });
 export default db;
